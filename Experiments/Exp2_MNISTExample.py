@@ -129,6 +129,8 @@ modelA.fit(xTrain, yTrain, epochs = 5)
 (loss1, acc1) = modelA.evaluate(xTrain, yTrain)
 print("Loss 1: " + str(loss1), "\nAccuracy 1: " + str(acc1))
 
+"""
 xTrainMod = [transformElems(slice, lambda x: x * 10) for slice in xTrain]
 (loss2, acc2) = modelA.evaluate(xTrainMod, yTrain)
 print("Loss 2: " + str(loss), "\nAccuracy 2: " + str(acc))
+"""
