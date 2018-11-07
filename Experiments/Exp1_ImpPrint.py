@@ -1,21 +1,30 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # 15-112: Fundamentals of Comp-Sci
+# Template by Evan Tipping
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Name: Evan Tipping
 # Andrew ID: eftippin
 # Recitation: H
 
-# Project Base
+# Experiment 1: Import printer
+# Created 10/28/2018
+
+# Version 0.2
+# Updated 11/6/2018
+#   o Modified error text for packages without version labels.
+#   o Improved collecting module names from manual entry to automatic process.
+#   o Added a 'finally' statement to error handler.
+
+# Planned features / updates:
+#   o Print only practially useable methods.
+#       - exclude exceptions, __"word"__ methods etc.
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Imports:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from deap import algorithms
-from deap import base
-from deap import creator
-
+# A few random packages to import for demonstration purposes.
 import inspect
 import socket
 import sys
@@ -25,13 +34,14 @@ import math
 import numpy
 import tensorflow
 
-print(globals())
-
 imps = set(sys.modules) & set(globals())
 
                 #==========================================#
             #~~~~~~~~~~~~]        Versions        [~~~~~~~~~~~~#
                 #==========================================#
+
+# Top level header code that prints out each imported module along with available
+#methods and version number (if available).
 
 for mod in imps:
     print()
@@ -40,7 +50,7 @@ for mod in imps:
                " version: " + sys.modules[mod].__version__)
 
     except:
-        print("No version found for " + sys.modules[mod].__name__ + ". Skipping...")
+        print("No version found for " + sys.modules[mod].__name__ + "!")
 
     finally:
         print("Available methods:")
@@ -62,8 +72,3 @@ for mod in imps:
                 #==========================================#
             #~~~~~~~~~~~~]        Functions        [~~~~~~~~~~~~#
                 #==========================================#
-
-# Simple (?) function to tranform elements of a square matrix given a lambda
-#expression used to modify them.
-def transformElems(matrix, lamb):
-    return list(map(lambda row: list(map(lambda x: lamb(x), row)), matrix))

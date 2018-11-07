@@ -1,12 +1,23 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # 15-112: Fundamentals of Comp-Sci
+# Template by Evan Tipping
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Name: Evan Tipping
 # Andrew ID: eftippin
 # Recitation: H
 
-# Project Base
+# "Project Name"
+# Created
+
+# Version #
+# Updated "Date"
+# Changes:
+# o Change
+
+# Planned features / updates:
+#   o Main feature description
+#       - Subdescription
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Imports:
