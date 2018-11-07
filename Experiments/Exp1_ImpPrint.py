@@ -63,5 +63,7 @@ for mod in imps:
             #~~~~~~~~~~~~]        Functions        [~~~~~~~~~~~~#
                 #==========================================#
 
+# Simple (?) function to tranform elements of a square matrix given a lambda
+#expression used to modify them.
 def transformElems(matrix, lamb):
     return list(map(lambda row: list(map(lambda x: lamb(x), row)), matrix))
