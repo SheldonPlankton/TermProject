@@ -7,15 +7,16 @@
 # Andrew ID: eftippin
 # Recitation: H
 
-# Experiment 3: PyGame events
+# Class: ControllerManager
 # 11/10/2018
 
-# Version 0.1
-# No updates yet...
-# No changes to report!
+# Version 0.2
+# 11/11/2018
+#   o Added numerous methods to the controller manager class.
 
 # Planned features / updates:
-#   o Main feature description
+#   o Add listeners and event handlers for different controllers.
+#   o Optimize methods
 #       - Subdescription
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -23,10 +24,6 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import pygame.joystick
-
-                #==========================================#
-            #~~~~~~~~~~~~]        Versions        [~~~~~~~~~~~~#
-                #==========================================#
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Body:
@@ -37,7 +34,7 @@ import pygame.joystick
                 #==========================================#
 
                 #==========================================#
-            #~~~~~~~~~~~~]        Subheader        [~~~~~~~~~~~~#
+            #~~~~~~~~~~~~]        Class Def        [~~~~~~~~~~~~#
                 #==========================================#
 
 class ControllerManager():
@@ -50,6 +47,9 @@ class ControllerManager():
                              for x in range(pygame.joystick.get_count())]
 
 
+
+# Adds a given controller from the system's controllers to the dictionary
+#of viable controllers.
     def addConts(self, playNum):
         if playNum <= pygame.joystick.get_count():
 
@@ -60,13 +60,12 @@ class ControllerManager():
 
 
 
-
+# Removes the indicated controller from the dictionary of controllers.
     def removeCont(self, playNum):
 
         if playNum in self.conts.keys():
             self.conts[playNum].quit()
             del self.conts[playNum]
-            del self.validConts[playNum-1]
             print("Player %d may now remove the controller" % playNum)
 
         elif not len(self.conts):
@@ -77,7 +76,7 @@ class ControllerManager():
 
 
 
-
+# Prints the name of a given controller for debugging.
     def getCont(self, playNum):
 
         if playNum in self.conts.keys():
@@ -86,22 +85,18 @@ class ControllerManager():
         else:
             print("Player " + str(playNum) + " does not exist!")
 
+
+
+# Method to activate a given controller.
     def startCont(self, playNum):
 
         if not self.isInit(playNum):
             self.conts[playNum].init()
 
+
+
+# Method to see if an indicated controller is active.
     def isInit(self, playNum):
 
         if playNum in self.conts.keys():
             return bool(self.conts[playNum].get_init())
-
-
-manager = ControllerManager(3)
-manager.addConts(1)
-manager.getCont(1)
-#manager.startCont(1)
-print(manager.isInit(1))
-
-manager.removeCont(1)
-manager.getCont(1)
