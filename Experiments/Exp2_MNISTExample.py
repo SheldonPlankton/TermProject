@@ -86,7 +86,6 @@ showDataRep(normData(xTrain, 1), 1)
 
 
 
-
                 #==========================================#
             #~~~~~~~~~~~~]   Exp 2: TF Neural Net  [~~~~~~~~~~~~#
                 #==========================================#
@@ -98,13 +97,11 @@ modelA = tf.keras.models.Sequential()
 
 
 
-
 # As mentioned previously, we want to flatten any input data, so we make sure
 #layer 1 is a flattening layer.
 
 modelA.add(tf.keras.layers.Flatten())
 addLayers(modelA, 5, 128)
-
 
 
 
@@ -118,10 +115,8 @@ modelA.compile(optimizer = 'adam',
 
 
 
-
 # Now, we run train our model. I had some time, so I did a lot of epochs.
 modelA.fit(xTrain, yTrain, epochs = 5)
-
 
 
 
