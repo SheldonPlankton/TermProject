@@ -26,6 +26,7 @@ import textwrap
 from math import *
 import tensorflow as tf
 import matplotlib.pyplot as ppt
+import numpy as np
 
 # Temporary import, as deepcopy is slow
 from copy import deepcopy
@@ -82,7 +83,6 @@ xTrain, xTest = normData(xTrain), normData(xTest)
 # Tests to ensure that everything is working fine.
 showDataRep(xTrain, 1)
 showDataRep(xTrain, 1, tForm = True, lamb = lambda x: 50 * (x % 2))
-showDataRep(normData(xTrain, 1), 1)
 
 
 
@@ -115,17 +115,20 @@ modelA.compile(optimizer = 'adam',
 
 
 
-# Now, we run train our model. I had some time, so I did a lot of epochs.
-modelA.fit(xTrain, yTrain, epochs = 5)
+# Now, we train our model. I had some time, so I did a lot of epochs.
+modelA.fit(xTrain, yTrain, epochs = 3)
 
 
 
-# Now for fun, we test the model on the dataset AND a tranformed set
+# Now for fun, we test the model on the dataset AND a tranformed set.
 (loss1, acc1) = modelA.evaluate(xTrain, yTrain)
 print("Loss 1: " + str(loss1), "\nAccuracy 1: " + str(acc1))
 
-"""
-xTrainMod = [transformElems(slice, lambda x: x * 10) for slice in xTrain]
-(loss2, acc2) = modelA.evaluate(xTrainMod, yTrain)
-print("Loss 2: " + str(loss), "\nAccuracy 2: " + str(acc))
-"""
+
+
+# Finally, we demonstrate that we've actually made a neural network.
+predictions = modelA.predict([xTest])
+for i in range(200):
+    print("The Neural Network predicts that index %d is " % i + \
+          str(np.argmax(predictions[i])))
+    showDataRep(xTest, i)
