@@ -7,17 +7,19 @@
 # Andrew ID: eftippin
 # Recitation: H
 
-# Function: Control Portion
+# Function: Enemy Control Portion
 # Created
 
-# Version #
-# Updated "Date"
-# Changes:
-# o Change
+# Version 0.0
 
 # Planned features / updates:
-#   o Main feature description
-#       - Subdescription
+#   o Add code unique code to this file
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Changelog:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# No changes yet!
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Imports:
@@ -35,22 +37,5 @@ import pygame
                 #==========================================#
 
 def enemyControlPortion(enemies):
-
-    for enemy in enemies:
-        if sqrt(contManager.getAxis(1, 1)**2 +
-                contManager.getAxis(1, 0)**2) > .1:
-
-            player.move(atan2(contManager.getAxis(1, 1),
-                              contManager.getAxis(1, 0)))
-
-        player.look(atan2(contManager.getAxis(1, 3),
-                          contManager.getAxis(1, 4)))
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            return True
-
-    # Testing exit via button command
-    if contManager.getButton(1, 2):
-        print("Exiting")
-        return True
+#TODO: Add enemy control code into this
+    pass

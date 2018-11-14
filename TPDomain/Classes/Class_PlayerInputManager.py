@@ -10,14 +10,22 @@
 # Class: ControllerManager
 # Created 11/10/2018
 
-# Version 0.2
-# 11/11/2018
-#   o Added numerous methods to the controller manager class.
+# Version 0.3
 
 # Planned features / updates:
 #   o Add listeners and event handlers for different controllers.
 #   o Optimize methods
 #       - Subdescription
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Changelog:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Updated to v0.3 on 11/14/2018
+#   o Added automatic keyboard labelling and use of Class_KeyboardManager.
+
+# Updated to v0.2 on 11/11/2018
+#   o Added numerous methods to the controller manager class.
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Overview:
@@ -42,7 +50,7 @@ ensures that all attempts to get controller information are valid.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import pygame
-from Class_KeyboardManager import KeyboardManager
+from Classes.Class_KeyboardManager import KeyboardManager
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Class Def:
@@ -58,7 +66,7 @@ class PlayerInputManager():
             #~~~~~~~~~~~~]       Metafuncts       [~~~~~~~~~~~~#
                 #==========================================#
 
-    def __init__(self, maxContArg):
+    def __init__(self):
         self.maxCont = pygame.joystick.get_count() + 1
         self.conts = {}
         self.conts[self.maxCont] = KeyboardManager

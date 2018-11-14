@@ -8,23 +8,25 @@
 # Recitation: H
 
 # Class: KeyboardManager
-# Created
+# Created 11/14/2018
 
-# Version #
-# Updated "Date"
-# Changes:
-# o Change
+# Version 1.0
 
 # Planned features / updates:
-#   o Main feature description
-#       - Subdescription
+#   o None!
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Changelog:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# No changes yet!
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Overview:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
-This class is simply a clean wrapper for keyboard output so that the keyboard
+This class is simply a clean wrapper for keyboard I/O so that the keyboard
 can be controlled by the input manager class with ease.
 """
 
@@ -32,9 +34,7 @@ can be controlled by the input manager class with ease.
 # Imports:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-                #==========================================#
-            #~~~~~~~~~~~~]        Versions        [~~~~~~~~~~~~#
-                #==========================================#
+import pygame
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Class Def:
@@ -42,5 +42,20 @@ can be controlled by the input manager class with ease.
 
 class KeyboardManager():
 
-    def __init__():
-        pass
+    def __init__(self):
+        pygame.key.set_repeat(10)
+
+    def dirKeys():
+        pygame.event.get()
+        dx, dy = 0, 0
+
+        dx -= 1 if pygame.key.get_pressed()[pygame.K_w] else 0
+        dx += 1 if pygame.key.get_pressed()[pygame.K_s] else 0
+        dy -= 1 if pygame.key.get_pressed()[pygame.K_a] else 0
+        dy += 1 if pygame.key.get_pressed()[pygame.K_d] else 0
+
+        return dx, dy
+
+    def mousePos():
+        pygame.event.get()
+        return pygame.mouse.get_pos()

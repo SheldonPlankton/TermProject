@@ -37,7 +37,7 @@ import pygame
 
 class PyGameObj():
 
-    __init__(self, xArg, yArg):
+    def __init__(self, xArg, yArg):
         self.x = xArg
         self.y = yArg
 

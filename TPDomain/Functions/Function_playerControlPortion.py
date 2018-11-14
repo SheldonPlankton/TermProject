@@ -7,17 +7,20 @@
 # Andrew ID: eftippin
 # Recitation: H
 
-# Function: Control Portion
-# Created
-
-# Version #
-# Updated "Date"
-# Changes:
-# o Change
+# Function: Player Control Portion
+# Created 11/13/2018
 
 # Planned features / updates:
-#   o Main feature description
-#       - Subdescription
+#   o perhaps handle collision management by passing the map state into the
+#     function.
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Changelog:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Updated to v0.2 on 11/14/2018
+# Changes:
+#   o Moved all of the input handling into the player class definition.
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Imports:
@@ -37,15 +40,8 @@ import pygame
 def playerControlPortion(contManager, players):
 
     for player in players:
-        if player.control == "GAMEPAD":
-            if sqrt(contManager.getAxis(player.pNum, 1)**2 +
-                    contManager.getAxis(player.pNum, 0)**2) > .1:
-
-                player.move(atan2(contManager.getAxis(player.pNum, 1),
-                              contManager.getAxis(player.pNum, 0)))
-
-            player.look(atan2(contManager.getAxis(player.pNum, 3),
-                          contManager.getAxis(player.pNum, 4)))
+        player.move(contManager)
+        player.look(contManager)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

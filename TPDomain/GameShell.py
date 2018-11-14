@@ -10,14 +10,23 @@
 # Experiment 4: Game Shell
 # Created 11/11/2018
 
-# Version 0.2
-# Updated 11/12/2018
-# Changes:
-# o Added functioning player representation to game that reads controller input
+# Version 0.3
 
 # Planned features / updates:
 #   o Make it possible to obtain items.
-#       - Subdescription
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Changelog:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Updated to v0.3 on 11/14/2018
+# Changes:
+# o Segregated the actual player logic and draw step into a function
+#       exterior to this file
+
+# Updated to v0.2 on 11/12/2018
+# Changes:
+# o Added functioning player representation to game that reads controller input
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Imports:
@@ -27,16 +36,16 @@
             #~~~~~~~~~~~~]        Classes         [~~~~~~~~~~~~#
                 #==========================================#
 
-from Class_TextPrint import TextPrint
-from Class_PlayerInputManager import PlayerInputManager
-from Class_Player import Player
+from Classes.Class_TextPrint import TextPrint
+from Classes.Class_PlayerInputManager import PlayerInputManager
+from Classes.Class_Player import Player
 
                 #==========================================#
             #~~~~~~~~~~~~]        Functions        [~~~~~~~~~~~~#
                 #==========================================#
 
-from Function_playerControlPortion import playerControlPortion
-from Function_displayPortion import displayPortion
+from Functions.Function_playerControlPortion import playerControlPortion
+from Functions.Function_displayPortion import displayPortion
 
                 #==========================================#
             #~~~~~~~~~~~~]         Modules         [~~~~~~~~~~~~#
@@ -56,9 +65,9 @@ done = False
 pygame.init()
 
 # Define a controller and a player state
-contManager = PlayerInputManager(1)
-players = [Player("GAMEPAD", 1, 0, 0, .1, pi, 0, 10, 10),
-           Player("KEYBOARD", 1, 20, 20, .1, pi, 0, 10, 10)]
+contManager = PlayerInputManager()
+players = [Player("GAMEPAD", 1, 0, 0, .5, pi, 0, 10, 10),
+           Player("KEYBOARD", 2, 20, 20, .5, pi, 0, 10, 10)]
 
 # Defines a screen to print player data
 text = TextPrint()

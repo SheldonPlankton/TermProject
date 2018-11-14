@@ -7,17 +7,13 @@
 # Andrew ID: eftippin
 # Recitation: H
 
-# "Project Name"
+# Class: Entity
 # Created
 
-# Version #
-# Updated "Date"
-# Changes:
-# o Change
+# Version 0.1
 
 # Planned features / updates:
-#   o Main feature description
-#       - Subdescription
+#   o Perhaps add default draw which takes an argument like a sprite sheet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Imports:

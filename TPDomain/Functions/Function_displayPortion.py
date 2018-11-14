@@ -7,17 +7,17 @@
 # Andrew ID: eftippin
 # Recitation: H
 
-# "Project Name"
+# Function: displayPortion
 # Created
 
-# Version #
-# Updated "Date"
-# Changes:
-# o Change
+# Version 0.1
 
-# Planned features / updates:
-#   o Main feature description
-#       - Subdescription
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Changelog:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# No changes yet!
+
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Imports:
