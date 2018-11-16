@@ -7,10 +7,14 @@
 # Andrew ID: eftippin
 # Recitation: H
 
-# Function: displayPortion
+# Function: Genetic Selector
 # Created
 
-# Version 0.1
+# Version #
+
+# Planned features / updates:
+#   o Main feature description
+#       - Subdescription
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Changelog:
@@ -18,34 +22,19 @@
 
 # No changes yet!
 
-
+# Updated to vx.x on mm/dd/yyyy
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Imports:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import pygame
-from Functions.Function_geometry import *
+                #==========================================#
+            #~~~~~~~~~~~~]        Versions        [~~~~~~~~~~~~#
+                #==========================================#
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Function Def:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-BLACK    = (   0,   0,   0)
-WHITE    = ( 255, 255, 255)
-RED      = ( 255,   0,   0)
-
-def displayPortion(screen, text, players, **objs):
-    screen.fill(WHITE)
-    if colCircCirc(players[0].x, players[0].y, 10,
-                   players[1].x, players[1].y, 10):
-            screen.fill(RED)
-    for player in players:
-
-        player.draw(screen)
-        player._debug_lookDirCheck(screen)
-
-    text.reset()
-    text.printS(screen, "Player x:{:>6.2f}".format(player.x))
-    text.printS(screen, "Player y:{:>6.2f}".format(player.y))
-
-    pygame.display.flip()
+def geneSelector(parentGeneration):
+# TODO: write fitness code
+    pass

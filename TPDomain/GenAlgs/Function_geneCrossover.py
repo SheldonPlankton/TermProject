@@ -7,10 +7,14 @@
 # Andrew ID: eftippin
 # Recitation: H
 
-# Function: displayPortion
-# Created
+# Function: Genetic Crossover
+# Created 11/14/2018
 
-# Version 0.1
+# Version 0.0
+
+# Planned features / updates:
+#   o Main feature description
+#       - Subdescription
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Changelog:
@@ -18,34 +22,31 @@
 
 # No changes yet!
 
-
+# Updated to vx.x on mm/dd/yyyy
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Imports:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import pygame
-from Functions.Function_geometry import *
+from random import random
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Function Def:
+# Body:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                #==========================================#
+            #~~~~~~~~~~~~]         Helpers         [~~~~~~~~~~~~#
+                #==========================================#
 
-BLACK    = (   0,   0,   0)
-WHITE    = ( 255, 255, 255)
-RED      = ( 255,   0,   0)
+def swapIndices(lstA, lstB, i):
+    assert(len(lstA) == len(lstB))
+    assert(0 <= i < len(lstA))
+    lstA[i], lstB[i] = lstB[i], lstA[i]
 
-def displayPortion(screen, text, players, **objs):
-    screen.fill(WHITE)
-    if colCircCirc(players[0].x, players[0].y, 10,
-                   players[1].x, players[1].y, 10):
-            screen.fill(RED)
-    for player in players:
+def geneCrossover(geneA, geneB, swapProb):
+    
+    try:
+        for i in range(len(geneA)):
+            if random(1) <= swapProb:
+                swapIndices(geneA, geneB, i)
 
-        player.draw(screen)
-        player._debug_lookDirCheck(screen)
-
-    text.reset()
-    text.printS(screen, "Player x:{:>6.2f}".format(player.x))
-    text.printS(screen, "Player y:{:>6.2f}".format(player.y))
-
-    pygame.display.flip()
+    except AssertionError:
+        print("These genes are incompatible!")
