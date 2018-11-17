@@ -45,6 +45,7 @@
 import pygame
 from math import *
 from Classes.Class_Entity import Entity
+from Classes.Class_Item import Item
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Class Def:
@@ -70,7 +71,7 @@ class Player(Entity):
         self.lookDir = lookDirArg
         self.atk = atkArg
         self.dfn = dfnArg
-        self.equips = {"Armor" : None, "Tool" : None}
+        self.equips = {"Armor" : None, "Tool" : Item("None")}
 
                 #==========================================#
             #~~~~~~~~~~~~]     Control Methods    [~~~~~~~~~~~~#

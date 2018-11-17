@@ -43,13 +43,22 @@ def displayPortion(screen, text, players, collectibles):
 
         collectible.draw(screen)
 
+    text.reset()
     for player in players:
 
         player.draw(screen)
         player._debug_lookDirCheck(screen)
 
-    text.reset()
-    text.printS(screen, "Player x:{:>6.2f}".format(player.x))
-    text.printS(screen, "Player y:{:>6.2f}".format(player.y))
+        text.printS(screen,
+                    "Player{:d} x:{:>6.2f}".format(player.pNum, player.x))
+
+        text.printS(screen,
+                    "Player{:d} y:{:>6.2f}".format(player.pNum, player.y))
+
+        text.printS(screen,
+                    "Player{:d} Item:{}".format(player.pNum,
+                                                   player.equips["Tool"].name))
+        text.printS(screen, "")
+
 
     pygame.display.flip()

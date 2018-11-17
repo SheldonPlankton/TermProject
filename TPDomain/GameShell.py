@@ -40,7 +40,7 @@ from Classes.Class_TextPrint import TextPrint
 from Classes.Class_PlayerInputManager import PlayerInputManager
 from Classes.Class_Player import Player
 from Classes.Class_Collectible import Collectible
-
+from Classes.Class_Item import Item
                 #==========================================#
             #~~~~~~~~~~~~]        Functions        [~~~~~~~~~~~~#
                 #==========================================#
@@ -67,9 +67,11 @@ pygame.init()
 
 # Define a controller and a player state
 contManager = PlayerInputManager()
-players = [Player("GAMEPAD", 1, 0, 0, 15, .5, pi, 0, 10, 10),
-           Player("KEYBOARD", 2, 20, 20, 40, .5, pi, 0, 10, 10)]
-collectibles = [Collectible(10 * i * 2, 10 * i, 10, "Banana") for i in range(20)]
+players = [Player("GAMEPAD", 1, 0, 0, 10, .5, pi, 0, 10, 10),
+           Player("KEYBOARD", 2, 20, 20, 10, .5, pi, 0, 10, 10)]
+
+collectibles = [Collectible(10 * i * 2, 10 * i,
+                            10, Item("Item" + str(i))) for i in range(20)]
 
 # Defines a screen to print player data
 text = TextPrint()
@@ -86,7 +88,8 @@ while not done:
                 #==========================================#
             #~~~~~~~~~~~~]      Control Phase      [~~~~~~~~~~~~#
                 #==========================================#
-    print(players[0].equips["Tool"], players[1].equips["Tool"])
+    #print(players[0].equips["Tool"], players[1].equips["Tool"])
+
     done = playerControlPortion(contManager, players, collectibles)
 
                 #==========================================#
