@@ -10,7 +10,7 @@
 # Class: Collectible
 # Created 11/16/2018
 
-# Version 0.1
+# Version 0.2
 
 # Planned features / updates:
 #   o Main feature description
@@ -20,7 +20,9 @@
 # Changelog:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# No changes yet!
+# Updated to v0.2 on 11/17/2018
+# Changes:
+#   o Generalized draw method to use item's draw method
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Imports:
