@@ -32,18 +32,12 @@ import socket
 # Server Body:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-HOST = "127.0.0.1"
-PORT = 65431
+HOST = '128.237.174.118'
+PORT = 65431        # The port used by the server
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
-    server.bind((HOST, PORT))
-    server.listen()
-    conn, addr = server.accept()
-    with conn:
-        print('Connected by', addr)
-        while True:
-            data = conn.recv(1024)
-            #print(data)
-            if not data:
-                break
-            conn.sendall(data)
+    server.connect((HOST, PORT))
+    server.sendall(b'Peepee poopoo')
+    data = server.recv(1024)
+
+print('Received', repr(data))
