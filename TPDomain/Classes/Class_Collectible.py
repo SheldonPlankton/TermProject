@@ -49,6 +49,4 @@ class Collectible(PyGameObj):
                            player.x, player.y, player.r)
 
     def draw(self, screen):
-        pygame.draw.circle(screen, (0, 255, 0),
-                           (int(floor(self.x)), int(floor(self.y))),
-                            int(self.r))
+        self.item.draw(screen, self.x, self.y, self.r)

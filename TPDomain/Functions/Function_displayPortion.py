@@ -56,8 +56,9 @@ def displayPortion(screen, text, players, collectibles):
                     "Player{:d} y:{:>6.2f}".format(player.pNum, player.y))
 
         text.printS(screen,
-                    "Player{:d} Item:{}".format(player.pNum,
-                                                   player.equips["Tool"].name))
+                    "Player{:d} Item {:d}:{}".format(player.pNum, player.curItem,
+                    player.inv[player.curItem].name),
+                    color = player.inv[player.curItem].color)
         text.printS(screen, "")
 
 

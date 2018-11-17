@@ -54,24 +54,26 @@ from Functions.Function_displayPortion import displayPortion
 
 import pygame
 from math import *
-
+from random import *
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Game Body:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Define some colors
 
-# Control game and initialize
+# Control game and initialdize
 done = False
 pygame.init()
 
 # Define a controller and a player state
 contManager = PlayerInputManager()
-players = [Player("GAMEPAD", 1, 0, 0, 10, .5, pi, 0, 10, 10),
-           Player("KEYBOARD", 2, 20, 20, 10, .5, pi, 0, 10, 10)]
+players = [Player("GAMEPAD", 1, 0, 200, 10, .5, pi, 0, 10, 10),
+           Player("KEYBOARD", 2, 200, 200, 10, .5, pi, 0, 10, 10)]
 
-collectibles = [Collectible(10 * i * 2, 10 * i,
-                            10, Item("Item" + str(i))) for i in range(20)]
+collectibles = [Collectible(10 * i * 5, 10 * i + 200,
+                            10, Item("Item" + str(i), 2,
+                            (randint(0,255), randint(0,255), randint(0,255)))) \
+                            for i in range(20)]
 
 # Defines a screen to print player data
 text = TextPrint()
@@ -88,7 +90,6 @@ while not done:
                 #==========================================#
             #~~~~~~~~~~~~]      Control Phase      [~~~~~~~~~~~~#
                 #==========================================#
-    #print(players[0].equips["Tool"], players[1].equips["Tool"])
 
     done = playerControlPortion(contManager, players, collectibles)
 

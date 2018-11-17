@@ -43,12 +43,14 @@ def playerControlPortion(contManager, players, collectibles):
         player.move(contManager)
         player.look(contManager)
         player.collect(contManager, collectibles)
+        player.swap(contManager)
+        player.update()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             return True
 
     # Testing exit via button command
-    if contManager.getButton(1, 2):
+    if contManager.getButton(1, 7):
         print("Exiting")
         return True

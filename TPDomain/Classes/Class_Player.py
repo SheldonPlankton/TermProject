@@ -46,6 +46,7 @@ import pygame
 from math import *
 from Classes.Class_Entity import Entity
 from Classes.Class_Item import Item
+from Classes.Class_Collectible import Collectible
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Class Def:
@@ -71,14 +72,45 @@ class Player(Entity):
         self.lookDir = lookDirArg
         self.atk = atkArg
         self.dfn = dfnArg
-        self.equips = {"Armor" : None, "Tool" : Item("None")}
+        self.armor = None
+        self.inv = {}
+        for i in range(1,6): self.inv[i] = Item(None, 0)
+        self.curItem = 1
+        self.colCool = 0
+        self.swapCool = 0
+
+        # TODO: Refine equips into inventory
 
                 #==========================================#
             #~~~~~~~~~~~~]     Control Methods    [~~~~~~~~~~~~#
                 #==========================================#
 
-    def equip(self, tool):
-        self.equips["Tool"] = tool
+    def equip(self, item, collectibles):
+        if self.inv[self.curItem].name == None:
+            self.inv[self.curItem] = item
+
+        else:
+            collectibles += [Collectible(self.x, self.y, 10,
+                                         self.inv[self.curItem])]
+            self.inv[self.curItem] = item
+
+
+
+
+    def swap(self, contManager):
+        pygame.event.get()
+        if not self.swapCool:
+
+            if self.control == "GAMEPAD":
+                if contManager.getButton(self.pNum, 5):
+                    self.curItem = (self.curItem % 5) + 1
+
+            elif self.control == "KEYBOARD":
+                if contManager.conts[self.pNum].mouseClick()[2]:
+                    self.curItem = (self.curItem % 5) + 1
+
+            self.swapCool = 50
+
 
 
 
@@ -113,24 +145,39 @@ class Player(Entity):
 
 
 
+
+
     def collect(self, contManager, collectibles):
+        pygame.event.get()
 
         # Inner function for looping over collectibles
         def collectLoop(self, collectibles):
             for i in range(len(collectibles) - 1, -1, -1):
                 if collectibles[i].collision(self):
-                    self.equip(collectibles[i].item)
+                    self.equip(collectibles[i].item, collectibles)
                     del collectibles[i]
                     break
 
-        if self.control == "GAMEPAD":
-            if contManager.getButton(self.pNum, 5):
-                collectLoop(self, collectibles)
+        if not self.colCool:
+            if self.control == "GAMEPAD":
+                if contManager.getButton(self.pNum, 2):
+                    collectLoop(self, collectibles)
 
-        elif self.control == "KEYBOARD":
-            if contManager.conts[self.pNum].mouseClick()[1]:
-                collectLoop(self, collectibles)
+            elif self.control == "KEYBOARD":
+                if contManager.conts[self.pNum].mouseClick()[1]:
+                    collectLoop(self, collectibles)
+            self.colCool = 100
 
+
+
+
+# Updates time based variables
+    def update(self):
+        if self.colCool > 0:
+            self.colCool -= 1
+
+        if self.swapCool > 0:
+            self.swapCool -= 1
                 #==========================================#
             #~~~~~~~~~~~~]       Draw Methods     [~~~~~~~~~~~~#
                 #==========================================#
