@@ -21,12 +21,19 @@ URL:
 # Class: Text Print
 # 11/12/2018
 
-# Version 0.1
-# No updates to report...
+# Version 0.2
 
 # Planned features / updates:
 #   o Main feature description
 #       - Subdescription
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Changelog:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Updated to v0.2 on 11/17/2018
+# Changes:
+#   o Generalized text color selection
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Overview:

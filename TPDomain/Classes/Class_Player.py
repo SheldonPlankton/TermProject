@@ -10,7 +10,7 @@
 # Class: Player
 # Created 11/10/2018
 
-# Version 0.4
+# Version 0.5
 
 # Planned features / updates:
 #   o Generalize draw function
@@ -18,6 +18,9 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Changelog:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Updated to v0.5 on 11/17/2018
+#   o Updated player inventory structure, added item switch functionality
 
 # Updated to v0.4 on 11/16/2018
 #   o Added method to handle item acquisition.

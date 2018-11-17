@@ -10,7 +10,7 @@
 # Experiment 4: Game Shell
 # Created 11/11/2018
 
-# Version 0.3
+# Version 0.4
 
 # Planned features / updates:
 #   o Make it possible to obtain items.
@@ -18,6 +18,10 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Changelog:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Updated to v0.3 on 11/17/2018
+# Changes:
+# o Modified intialiazations to reflect restructuring of player
 
 # Updated to v0.3 on 11/14/2018
 # Changes:

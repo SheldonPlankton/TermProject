@@ -10,6 +10,8 @@
 # Function: Player Control Portion
 # Created 11/13/2018
 
+# Version 0.3
+
 # Planned features / updates:
 #   o perhaps handle collision management by passing the map state into the
 #     function.
@@ -17,6 +19,10 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Changelog:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Updated to v0.3 on 11/17/2018
+# Changes:
+#   o Included new player methods
 
 # Updated to v0.2 on 11/14/2018
 # Changes:
