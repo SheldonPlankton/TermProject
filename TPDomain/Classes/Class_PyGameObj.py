@@ -35,7 +35,7 @@ import pygame
 # Class Def:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class PyGameObj():
+class PyGameObj:
 
     def __init__(self, xArg, yArg):
         self.x = xArg

@@ -7,10 +7,10 @@
 # Andrew ID: eftippin
 # Recitation: H
 
-# Function: Genetic Crossover
-# Created 11/14/2018
+# Class: Collectible
+# Created 11/16/2018
 
-# Version 0.0
+# Version 0.1
 
 # Planned features / updates:
 #   o Main feature description
@@ -22,38 +22,33 @@
 
 # No changes yet!
 
-# Updated to vx.x on mm/dd/yyyy
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Imports:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from random import random
+from Classes.Class_PyGameObj import PyGameObj
+from Classes.Class_Item import Item
+from Functions.Function_geometry import *
+import pygame
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Body:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                #==========================================#
-            #~~~~~~~~~~~~]         Helpers         [~~~~~~~~~~~~#
-                #==========================================#
 
-def swapIndices(lstA, lstB, i):
-    assert(len(lstA) == len(lstB))
-    assert(0 <= i < len(lstA))
-    lstA[i], lstB[i] = lstB[i], lstA[i]
 
-def geneCrossover(geneA, geneB, swapProb):
+class Collectible(PyGameObj):
 
-    try:
-        for i in range(len(geneA)):
-            if random(1) <= swapProb:
-                swapIndices(geneA, geneB, i)
+    def __init__(self, xArg, yArg, rArg, itemArg):
+        self.x = xArg
+        self.y = yArg
+        self.r = rArg
+        self.item = itemArg
 
-    except AssertionError:
-        print("These genes are incompatible!")
+    def collision(self, player):
+        return colCircCirc(self.x, self.y, self.r,
+                           player.x, player.y, player.r)
 
-gene1 = [1,2,0,1,3,4,6,5]
-gene2 = [8,9,8,0,8,9,8,7]
-
-geneCrossover(gene1, gene2, .1)
-
-print("Child gene:")
+    def draw(self, screen):
+        pygame.draw.circle(screen, (0, 255, 0),
+                           (int(floor(self.x)), int(floor(self.y))),
+                            int(self.r))

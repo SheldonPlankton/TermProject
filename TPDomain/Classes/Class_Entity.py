@@ -8,7 +8,7 @@
 # Recitation: H
 
 # Class: Entity
-# Created
+# Created 11/12/2018
 
 # Version 0.1
 
@@ -25,7 +25,7 @@ from math import *
 # Class Def:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Entity():
+class Entity:
 
     #DocString:
 

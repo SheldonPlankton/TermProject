@@ -56,7 +56,7 @@ from Classes.Class_KeyboardManager import KeyboardManager
 # Class Def:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class PlayerInputManager():
+class PlayerInputManager:
 
     #DocString:
 

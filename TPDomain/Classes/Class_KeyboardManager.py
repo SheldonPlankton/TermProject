@@ -10,7 +10,7 @@
 # Class: KeyboardManager
 # Created 11/14/2018
 
-# Version 1.0
+# Version 1.1
 
 # Planned features / updates:
 #   o None!
@@ -19,7 +19,8 @@
 # Changelog:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# No changes yet!
+# Updated to v1.1 on 11/16/2018
+#   o Added mouse click register
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Overview:
@@ -40,7 +41,7 @@ import pygame
 # Class Def:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class KeyboardManager():
+class KeyboardManager:
 
     def __init__(self):
         pygame.key.set_repeat(10)
@@ -59,3 +60,7 @@ class KeyboardManager():
     def mousePos():
         pygame.event.get()
         return pygame.mouse.get_pos()
+
+    def mouseClick():
+        pygame.event.get()
+        return pygame.mouse.get_pressed()

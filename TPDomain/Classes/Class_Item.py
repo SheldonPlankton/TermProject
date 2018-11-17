@@ -7,10 +7,10 @@
 # Andrew ID: eftippin
 # Recitation: H
 
-# Function: Genetic Crossover
-# Created 11/14/2018
+# Class: Item
+# Created 11/16/2018
 
-# Version 0.0
+# Version 0.1
 
 # Planned features / updates:
 #   o Main feature description
@@ -22,38 +22,15 @@
 
 # No changes yet!
 
-# Updated to vx.x on mm/dd/yyyy
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Imports:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from random import random
-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Body:
+# Class Def:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                #==========================================#
-            #~~~~~~~~~~~~]         Helpers         [~~~~~~~~~~~~#
-                #==========================================#
 
-def swapIndices(lstA, lstB, i):
-    assert(len(lstA) == len(lstB))
-    assert(0 <= i < len(lstA))
-    lstA[i], lstB[i] = lstB[i], lstA[i]
+class Item:
 
-def geneCrossover(geneA, geneB, swapProb):
-
-    try:
-        for i in range(len(geneA)):
-            if random(1) <= swapProb:
-                swapIndices(geneA, geneB, i)
-
-    except AssertionError:
-        print("These genes are incompatible!")
-
-gene1 = [1,2,0,1,3,4,6,5]
-gene2 = [8,9,8,0,8,9,8,7]
-
-geneCrossover(gene1, gene2, .1)
-
-print("Child gene:")
+    def __init__(self, nameArg):
+        self.name = nameArg

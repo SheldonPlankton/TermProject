@@ -37,11 +37,12 @@ import pygame
             #~~~~~~~~~~~~]         Helpers         [~~~~~~~~~~~~#
                 #==========================================#
 
-def playerControlPortion(contManager, players):
+def playerControlPortion(contManager, players, collectibles):
 
     for player in players:
         player.move(contManager)
         player.look(contManager)
+        player.collect(contManager, collectibles)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
