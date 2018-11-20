@@ -42,7 +42,6 @@ controllers in the game, like a bin. This does not control anything like
 movement, as it is intended exclusively for easier handling of input
 information and uses logic to avoid crash errors. Effectively, it
 ensures that all attempts to get controller information are valid.
-
 """
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -162,7 +161,7 @@ class PlayerInputManager:
         else:
             print("Not a valid controller!")
 
-# Gets information about the joystick movement is pressed.
+# Gets information about the joystick movement.
     def getAxis(self, playNum, stickNum):
         pygame.event.get()
 
