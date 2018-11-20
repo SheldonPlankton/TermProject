@@ -45,6 +45,11 @@ import pygame
 
 def playerControlPortion(contManager, players, collectibles):
 
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            return True
+
+    # Player control loop
     for player in players:
         player.move(contManager)
         player.look(contManager)
@@ -52,11 +57,10 @@ def playerControlPortion(contManager, players, collectibles):
         player.swap(contManager)
         player.update()
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            return True
+
 
     # Testing exit via button command
-    if contManager.getButton(1, 7):
-        print("Exiting")
-        return True
+    if len(players) > 1:
+        if contManager.getButton(1, 7):
+            print("Exiting")
+            return True

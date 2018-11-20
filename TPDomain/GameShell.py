@@ -77,8 +77,6 @@ pygame.init()
 
 # Define a controller and a player state
 contManager = PlayerInputManager()
-players = [Player("GAMEPAD", 1, 0, 200, 10, .5, pi, 0, 10, 10),
-           Player("KEYBOARD", 2, 200, 200, 10, .5, pi, 0, 10, 10)]
 
 collectibles = [Collectible(10 * i * 5, 10 * i + 200,
                             10, Item("Item" + str(i), 2,
@@ -90,12 +88,21 @@ text = TextPrint()
 screen = pygame.display.set_mode([800, 800])
 pygame.display.set_caption("My Game")
 
-contManager.addConts(1)
-contManager.startCont(1)
+players = [Player("KEYBOARD", pygame.joystick.get_count() + 1,
+           200, 200, 10, .5, pi, 0, 10, 10)]
+
+# Initializes even if no joystick (only adds joystick if controller plugged in)
+if pygame.joystick.get_count() > 0:
+    players = [Player("GAMEPAD", 1, 0, 200, 10, .5, pi, 0, 10, 10)] + players
+    contManager.addConts(1)
+    contManager.startCont(1)
 
 
 
 while not done:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            done = True
 
                 #==========================================#
             #~~~~~~~~~~~~]      Control Phase      [~~~~~~~~~~~~#

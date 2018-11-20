@@ -181,6 +181,7 @@ class Player(Entity):
 
         if self.swapCool > 0:
             self.swapCool -= 1
+
                 #==========================================#
             #~~~~~~~~~~~~]       Draw Methods     [~~~~~~~~~~~~#
                 #==========================================#
@@ -188,12 +189,6 @@ class Player(Entity):
     def draw(self, screen):
         pygame.draw.circle(screen, (0, 0, 0),
                            (floor(self.x), floor(self.y)), self.r)
-
-
-
-
-    def getStats(self):
-        return (self.x, self.y, self.dir, self.lookDir)
 
 
                 #==========================================#
