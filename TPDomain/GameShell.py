@@ -96,11 +96,11 @@ screen = pygame.display.set_mode([800, 800])
 pygame.display.set_caption("My Game")
 
 players = [Player("KEYBOARD", pygame.joystick.get_count() + 1,
-           200, 200, 10, .5, pi, 0, 10, 10)]
+           200, 200, 20, .3, pi, 0, 10, 10)]
 
 # Initializes even if no joystick (only adds joystick if controller plugged in)
 if pygame.joystick.get_count() > 0:
-    players = [Player("GAMEPAD", 1, 0, 200, 10, .5, pi, 0, 10, 10)] + players
+    players = [Player("GAMEPAD", 1, 0, 200, 20, .3, pi, 0, 10, 10)] + players
     contManager.addConts(1)
     contManager.startCont(1)
 

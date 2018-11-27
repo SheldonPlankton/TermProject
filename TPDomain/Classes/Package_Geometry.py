@@ -41,6 +41,7 @@ from numpy import *
 from scipy.spatial import distance
 from time import time
 import pygame
+from Classes.Class_Icon import Icon
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Function Defs:
@@ -108,9 +109,11 @@ def generalCollider(shape1, shape2):
 
 class Circle:
 
-    def __init__(self, centerArg, rArg):
+    def __init__(self, centerArg, rArg, imgArg = False):
         self.c = list(centerArg)
         self.r = rArg
+        if imgArg:
+            self.img = Icon(imgArg)
 
     def collision(self, other):
         if type(other) == Circle:
@@ -120,8 +123,13 @@ class Circle:
             return generalCollider(self, other)
 
     def draw(self, screen, color):
-        pygame.draw.circle(screen, color,
-                           (int(self.c[0]), int(self.c[1])), int(self.r))
+        if not hasattr(self, 'img'):
+            pygame.draw.circle(screen, color,
+                               (int(self.c[0]), int(self.c[1])),
+                               int(self.r))
+        else:
+            self.img.draw(screen, (int(self.c[0] - sqrt((self.r**2)/2)),
+                                   int(self.c[1] - sqrt((self.r**2)/2))))
 
 class Polygon:
 

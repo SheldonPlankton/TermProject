@@ -99,7 +99,6 @@ class Player(Entity):
 
 
 
-
     def swap(self, contManager):
         pygame.event.get()
         if not self.swapCool:
@@ -113,7 +112,6 @@ class Player(Entity):
                     self.curItem = (self.curItem % 5) + 1
 
             self.swapCool = 150
-
 
 
 
