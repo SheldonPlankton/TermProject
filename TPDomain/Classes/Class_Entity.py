@@ -20,6 +20,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 from math import *
+from Classes.Package_Geometry import Circle
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Class Def:
@@ -35,9 +36,8 @@ class Entity:
             #~~~~~~~~~~~~]       Metafuncts       [~~~~~~~~~~~~#
                 #==========================================#
 
-    def __init__(self, xArg, yArg, spdArg, dirArg):
-        self.x = xArg
-        self.y = yArg
+    def __init__(self, shapeArg, spdArg, dirArg):
+        self.shape = shapeArg
         self.spd = spdArg
         self.dir = dirArg
 
@@ -47,5 +47,6 @@ class Entity:
 
     def move(self, dir = None):
         self.dir = self.dir if dir == None else dir
-        self.x += self.spd * cos(self.dir)
-        self.y += self.spd * sin(self.dir)
+        if type(self.shape) == Circle:
+            self.shape.c[0] += self.spd * cos(self.dir)
+            self.shape.c[1] += self.spd * sin(self.dir)

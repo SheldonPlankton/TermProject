@@ -56,6 +56,7 @@ from Classes.Class_Player import Player
 from Classes.Class_Collectible import Collectible
 from Classes.Class_Item import Item
 from Classes.Items.Item_Wep import BaseWeapon
+
                 #==========================================#
             #~~~~~~~~~~~~]        Functions        [~~~~~~~~~~~~#
                 #==========================================#
@@ -84,8 +85,8 @@ pygame.init()
 contManager = PlayerInputManager()
 
 collectibles = [Collectible(10 * i * 5, 10 * i + 200, 10,
-                            BaseWeapon("Item" + str(i), 20, 200, .5, 100, 20,
-                            (randint(0,255), randint(0,255), randint(0,255)))) \
+                            BaseWeapon("Item" + str(i), 20, 200, .5, 1000, 20,
+                            5, (randint(0,255), randint(0,255), randint(0,255)))) \
                             for i in range(20)]
 
 projectiles = []

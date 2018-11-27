@@ -50,6 +50,7 @@ from math import *
 from Classes.Class_Entity import Entity
 from Classes.Class_Item import Item
 from Classes.Class_Collectible import Collectible
+from Classes.Package_Geometry import Circle
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Class Def:
@@ -68,8 +69,7 @@ class Player(Entity):
     def __init__(self, controlArg, pNumArg, xArg, yArg, rArg,
                  spdArg, dirArg, lookDirArg, dfnArg, atkArg):
 
-        super().__init__(xArg, yArg, spdArg, dirArg)
-        self.r = rArg
+        super().__init__(Circle((xArg, yArg), rArg), spdArg, dirArg)
         self.control = controlArg
         self.pNum = pNumArg
         self.lookDir = lookDirArg
@@ -93,7 +93,7 @@ class Player(Entity):
             self.inv[self.curItem] = item
 
         else:
-            collectibles += [Collectible(self.x, self.y, 10,
+            collectibles += [Collectible(self.shape.c[0], self.shape.c[1], 10,
                                          self.inv[self.curItem])]
             self.inv[self.curItem] = item
 
@@ -126,8 +126,8 @@ class Player(Entity):
 
         elif self.control == "KEYBOARD":
             mousePos = contManager.conts[self.pNum].mousePos()
-            xDif = mousePos[0] - self.x
-            yDif = mousePos[1] - self.y
+            xDif = mousePos[0] - self.shape.c[0]
+            yDif = mousePos[1] - self.shape.c[1]
             self.lookDir = atan2(yDif, xDif)
 
 
@@ -139,8 +139,6 @@ class Player(Entity):
                     contManager.getAxis(self.pNum, 0)**2) > .1:
                     super().move(atan2(contManager.getAxis(self.pNum, 1),
                                        contManager.getAxis(self.pNum, 0)))
-
-
 
         elif self.control == "KEYBOARD":
             x, y = contManager.conts[self.pNum].dirKeys()
@@ -156,7 +154,7 @@ class Player(Entity):
         # Inner function for looping over collectibles
         def collectLoop(self, collectibles):
             for i in range(len(collectibles) - 1, -1, -1):
-                if collectibles[i].collision(self):
+                if collectibles[i].collision(self.shape):
                     self.equip(collectibles[i].item, collectibles)
                     del collectibles[i]
                     break
@@ -206,9 +204,8 @@ class Player(Entity):
             #~~~~~~~~~~~~]       Draw Methods     [~~~~~~~~~~~~#
                 #==========================================#
 
-    def draw(self, screen):
-        pygame.draw.circle(screen, (0, 0, 0),
-                           (floor(self.x), floor(self.y)), self.r)
+    def draw(self, screen, color = (0, 0, 0)):
+        self.shape.draw(screen, color)
 
 
                 #==========================================#
@@ -216,6 +213,7 @@ class Player(Entity):
                 #==========================================#
 
     def _debug_lookDirCheck(self, screen):
-        pygame.draw.line(screen, (0, 0, 0), (floor(self.x), floor(self.y)),
-                         (floor(self.x) + 100 * cos(self.lookDir),
-                          floor(self.y) + 100 * sin(self.lookDir)))
+        pygame.draw.line(screen, (0, 0, 0), (floor(self.shape.c[0]),
+                                             floor(self.shape.c[1])),
+                         (floor(self.shape.c[0]) + 100 * cos(self.lookDir),
+                          floor(self.shape.c[1]) + 100 * sin(self.lookDir)))

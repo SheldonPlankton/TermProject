@@ -27,6 +27,7 @@
 
 from Functions.Function_geometry import *
 import pygame
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Body:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -34,13 +35,16 @@ import pygame
 class Circle:
 
     def __init__(self, centerArg, rArg):
-        self.x = centerArg[0]
-        self.y = centerArg[1]
+        self.c = list(centerArg)
         self.r = rArg
 
-    def collision(self, otherShape):
-        if otherShape.type != Polygon:
-            pass
+    def collision(self, other):
+        if type(other) == Circle:
+            return colCircCirc(self.c, self.r, other.c, other.r)
 
-    def draw(self, parent, screen):
-        pygame.draw.circle(screen, parent.color, (self.x, self.y), self.r)
+        else:
+            return generalCollider(self, other)
+
+    def draw(self, screen, color):
+        pygame.draw.circle(screen, color,
+                           (int(self.c[0]), int(self.c[1])), int(self.r))

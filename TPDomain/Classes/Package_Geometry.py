@@ -19,7 +19,9 @@
 # Changelog:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# No changes yet!
+# Updated to v0.2 11/27/2018
+# o Moved all of the shape classes into this file to avoid circular
+#       dependency bug.
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Overview:
@@ -38,6 +40,7 @@ from math import *
 from numpy import *
 from scipy.spatial import distance
 from time import time
+import pygame
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Function Defs:
@@ -70,29 +73,63 @@ def getNorms(points):
 def projection(vect1, vect2):
     return dot(vect1, getUnitVect(vect2))
 
+# Quick circle/ circle collision function
+def colCircCirc(c1, r1, c2, r2):
+    return eucDist(c1, c2) < r1 + r2
 
                 #==========================================#
             #~~~~~~~~~~~~]        Collision        [~~~~~~~~~~~~#
                 #==========================================#
 
 def sepAxisTheoremCheck(line1, line2, norm):
-
+    pass
 
 def generalCollider(shape1, shape2):
-    norms = [(p1, p2) for p1, p2 in getNorms(shape1.points)] + \
-            [(p3, p4) for p3, p4 in getNorms(shape2.points)]
+    if type(shape1) == Circle == type(shape2):
+        return colCircCirc(shape1.c, shape1.r, shape2.c, shape2.r)
 
-    if type(shape1) == Polygon == type(shape2):
+    elif type(shape1) == Polygon == type(shape2):
+        norms = [(p1, p2) for p1, p2 in getNorms(shape1.points)] + \
+                [(p3, p4) for p3, p4 in getNorms(shape2.points)]
         for norm in getNorms(shape2.points):
             for side1 in getSides(shape1):
                 for side2 in getSides(shape2):
                     if not sepAxisTheoremCheck(side1, side2, norm): return True
 
-    elif type(shape1) == Circ:
+    elif type(shape1) == Circle:
         pass
 
-    elif type(shape2) == Circ:
+    elif type(shape2) == Circle:
         pass
 
-def colCircCirc(c1, r1, c2, r2):
-    return eucDist(c1, c2) < r1 + r2
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Class Defs:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class Circle:
+
+    def __init__(self, centerArg, rArg):
+        self.c = list(centerArg)
+        self.r = rArg
+
+    def collision(self, other):
+        if type(other) == Circle:
+            return colCircCirc(self.c, self.r, other.c, other.r)
+
+        else:
+            return generalCollider(self, other)
+
+    def draw(self, screen, color):
+        pygame.draw.circle(screen, color,
+                           (int(self.c[0]), int(self.c[1])), int(self.r))
+
+class Polygon:
+
+    def __init__(self, pointsArg):
+        self.points = [list(p) for p in pointsArg]
+
+    def collision(self, otherShape):
+        return generalCollider()
+
+    def draw(self, parent, screen):
+        pygame.draw.polygon(screen, parent.color, self.points)

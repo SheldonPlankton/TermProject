@@ -30,6 +30,7 @@
 
 import pygame
 from math import *
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Class Def:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -48,7 +49,7 @@ class Item:
 #item so that this defines what is drawn.
     def draw(self, screen, x, y, r):
         pygame.draw.circle(screen, self.color,
-                           (int(floor(x)), int(floor(y))), int(r))
+                           (int(x), int(y)), int(r))
 
     def use(self, user, players, projectiles):
         self.coolCurrent = self.cool

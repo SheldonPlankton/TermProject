@@ -37,9 +37,11 @@ import pygame
 
 class PyGameObj:
 
-    def __init__(self, xArg, yArg):
-        self.x = xArg
-        self.y = yArg
+    def __init__(self, shapeArg):
+        self.shape = shapeArg
 
     def draw(self, screen):
-        pygame.draw.rect(screen, (0, 0, 0), (self.x, self.y, 20, 20))
+        self.shape.draw(self.color, screen)
+
+    def collision(self, other):
+        return self.shape.collision(other)

@@ -37,16 +37,15 @@ import pygame
 
 class ProjectileBase(Entity):
 
-    def __init__(self, xArg, yArg, dirArg, spdArg, lifeArg, dmgArg,
+    def __init__(self, dirArg, spdArg, lifeArg, dmgArg,
                  shapeArg, colorArg):
-        super().__init__(xArg, yArg, spdArg, dirArg)
+        super().__init__(shapeArg, spdArg, dirArg)
         self.life = lifeArg
         self.dmg = dmgArg
-        self.shape = shapeArg
         self.color = colorArg
 
     def draw(self, screen):
-        self.shape.draw(screen, (0, 255, 220), (int(self.x), int(self.y)), 15)
+        self.shape.draw(screen, self.color)
 
     def update(self, projectiles):
         self.move()

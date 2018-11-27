@@ -23,7 +23,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import pygame
-
+from Function_geometry import generalCollider
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Body:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -31,10 +31,10 @@ import pygame
 class Polygon:
 
     def __init__(self, pointsArg):
-        self.points = pointsArg
+        self.points = [list(p) for p in pointsArg]
 
     def collision(self, otherShape):
-        pass
+        return generalCollider()
 
     def draw(self, parent, screen):
         pygame.draw.polygon(screen, parent.color, self.points)

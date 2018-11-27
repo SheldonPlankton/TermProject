@@ -26,7 +26,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import pygame
-from Functions.Function_geometry import *
+
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Function Def:
@@ -43,16 +43,19 @@ def displayPortion(screen, text, players, collectibles, projectiles):
         collectible.draw(screen)
 
     text.reset()
+    
     for player in players:
 
         player.draw(screen)
         player._debug_lookDirCheck(screen)
 
         text.printS(screen,
-                    "Player{:d} x:{:>6.2f}".format(player.pNum, player.x))
+                    "Player{:d} x:{:>6.2f}".format(player.pNum,
+                                                   player.shape.c[0]))
 
         text.printS(screen,
-                    "Player{:d} y:{:>6.2f}".format(player.pNum, player.y))
+                    "Player{:d} y:{:>6.2f}".format(player.pNum,
+                                                   player.shape.c[1]))
 
         text.printS(screen,
                     "Player{:d} Item {:d}:{}".format(player.pNum, player.curItem,
