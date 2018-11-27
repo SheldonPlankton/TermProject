@@ -30,26 +30,30 @@
 
 import pygame
 from math import *
-
+from Classes.Class_Icon import Icon
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Class Def:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Item:
 
-    def __init__(self, nameArg, usesArg, coolArg, colorArg = (0, 0, 0)):
+    def __init__(self, nameArg, usesArg, coolArg,
+                 colorArg = (0, 0, 0), iconName = None):
         self.name = nameArg
         self.uses = usesArg
         self.cool = coolArg
         self.coolCurrent = 0
         self.color = colorArg
+        if iconName != None:
+            self.icon = Icon(iconName)
 
 # This allows the on-screen representation to depend on the item definition.
 #Basically, the collectible class will call this method when drawing the
 #item so that this defines what is drawn.
     def draw(self, screen, x, y, r):
-        pygame.draw.circle(screen, self.color,
-                           (int(x), int(y)), int(r))
+        if hasattr(self, 'icon'):
+            self.icon.draw(screen,
+                           (int(x - sqrt((r**2)/2)), int(y - sqrt((r**2)/2))))
 
     def use(self, user, players, projectiles):
         self.coolCurrent = self.cool

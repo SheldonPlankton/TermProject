@@ -34,8 +34,8 @@ from math import *
 class BaseWeapon(Classes.Class_Item.Item):
 
     def __init__(self, nameArg, usesArg, coolArg, spdArg, lifeArg, dmgArg,
-                 pRadArg, pColArg, colorArg = (0, 0, 0)):
-        super().__init__(nameArg, usesArg, coolArg, colorArg)
+                 pRadArg, pColArg, colorArg = (0, 0, 0), imgArg = None):
+        super().__init__(nameArg, usesArg, coolArg, colorArg, imgArg)
         self.spd = spdArg
         self.life = lifeArg
         self.dmg = dmgArg

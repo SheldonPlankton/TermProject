@@ -7,17 +7,17 @@
 # Andrew ID: eftippin
 # Recitation: H
 
-# "Project Name"
+# Geometry Package
 # Created
 
-# Version 0.1
-
-# Planned features / updates:
-#   o Write collision detections
+# Version 0.3
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Changelog:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Updated to v0.3 on 11/27/2018
+# o Finished Separating Axis Theorem integration for collision detection
 
 # Updated to v0.2 11/27/2018
 # o Moved all of the shape classes into this file to avoid circular
@@ -78,13 +78,45 @@ def projection(vect1, vect2):
 def colCircCirc(c1, r1, c2, r2):
     return eucDist(c1, c2) < r1 + r2
 
+# Checks for collision between a polygon and a circle using a modified
+#version of the separating axis theorem. Effectively, the minimum and maximum
+#projections onto an axis for a circle will always be the projection of the
+#center plus or minus the radius. It then returns true if there is collision,
+#or false if there is not
+def colCircPoly(circle, polygon):
+    for norm in getNorms(polygon.points):
+        minPol, maxPol = getMinMaxProj(polygon, norm)
+        minCir, maxCir = (projection(circle.c, norm) - circle.r,
+                          projection(circle.c, norm) + circle.r)
+        if maxPol < minCir or maxCir < minPol:
+            return False
+    return True
+
                 #==========================================#
             #~~~~~~~~~~~~]        Collision        [~~~~~~~~~~~~#
                 #==========================================#
 
-def sepAxisTheoremCheck(line1, line2, norm):
-    pass
+# This gets the minimum and maximum projections along a given axis
+def getMinMaxProj(shape, axis):
+    minP, maxP = projection(shape.points[0], axis), 0
+    for p in shape.points:
+        proj = projection(p, axis)
+        if proj < minP: minP = proj
+        elif proj > maxP: maxP = proj
 
+    return minP, maxP
+
+# Returns True if there is no overlap between the minimum projection of one
+#and the maximum of another
+def sepAxisTheoremCheck(shape1, shape2, axis):
+    min1, max1, min2, max2 = (*getMinMaxProj(shape1, axis),
+                              *getMinMaxProj(shape2, axis))
+    if max1 < min2 or max2 < min1:
+        return True
+    return False
+
+# This checks for a separating axis and returns False as soon as one is found,
+#indicating no collision
 def generalCollider(shape1, shape2):
     if type(shape1) == Circle == type(shape2):
         return colCircCirc(shape1.c, shape1.r, shape2.c, shape2.r)
@@ -92,21 +124,23 @@ def generalCollider(shape1, shape2):
     elif type(shape1) == Polygon == type(shape2):
         norms = [(p1, p2) for p1, p2 in getNorms(shape1.points)] + \
                 [(p3, p4) for p3, p4 in getNorms(shape2.points)]
+
         for norm in getNorms(shape2.points):
-            for side1 in getSides(shape1):
-                for side2 in getSides(shape2):
-                    if not sepAxisTheoremCheck(side1, side2, norm): return True
+            if sepAxisTheoremCheck(shape1, shape2, norm): return False
+        return True
 
     elif type(shape1) == Circle:
-        pass
+        return colCircPoly(shape1, shape2)
 
     elif type(shape2) == Circle:
-        pass
+        return colCircPoly(shape2, shape1)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Class Defs:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# Both of these classes are cases to handle polygonal and round bounding boxes
+#with both collisional and drawing methods bundled inside
 class Circle:
 
     def __init__(self, centerArg, rArg, imgArg = False):
@@ -116,11 +150,7 @@ class Circle:
             self.img = Icon(imgArg)
 
     def collision(self, other):
-        if type(other) == Circle:
-            return colCircCirc(self.c, self.r, other.c, other.r)
-
-        else:
-            return generalCollider(self, other)
+        return generalCollider(self, other)
 
     def draw(self, screen, color):
         if not hasattr(self, 'img'):
@@ -137,7 +167,10 @@ class Polygon:
         self.points = [list(p) for p in pointsArg]
 
     def collision(self, otherShape):
-        return generalCollider()
+        return generalCollider(self, otherShape)
 
-    def draw(self, parent, screen):
-        pygame.draw.polygon(screen, parent.color, self.points)
+    def draw(self, screen, color):
+        pygame.draw.polygon(screen, color, self.points)
+
+print(generalCollider(Polygon([(0,0), (0,1), (1,0)]),
+                      Polygon([(0,1.0001), (8,1), (1,2), (1,1)])))

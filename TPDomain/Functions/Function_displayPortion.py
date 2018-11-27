@@ -26,7 +26,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import pygame
-
+from Classes.Package_Geometry import Polygon
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Function Def:
@@ -34,7 +34,7 @@ import pygame
 
 BLACK    = (   0,   0,   0)
 WHITE    = ( 255, 255, 255)
-RED      = ( 255,   255,   0)
+RED      = ( 255, 255,   0)
 
 def displayPortion(screen, text, players, collectibles, projectiles):
     screen.fill(WHITE)
@@ -43,7 +43,7 @@ def displayPortion(screen, text, players, collectibles, projectiles):
         collectible.draw(screen)
 
     text.reset()
-    
+
     for player in players:
 
         player.draw(screen)

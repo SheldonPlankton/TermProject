@@ -86,7 +86,8 @@ contManager = PlayerInputManager()
 
 collectibles = [Collectible(10 * i * 5, 10 * i + 200, 10,
                             BaseWeapon("Item" + str(i), 20, 200, .5, 1000, 20,
-                            5, (randint(0,255), randint(0,255), randint(0,255)))) \
+                            5, (randint(0,255), randint(0,255), randint(0,255)),
+                            (120, 0, 240), 'Test')) \
                             for i in range(20)]
 
 projectiles = []

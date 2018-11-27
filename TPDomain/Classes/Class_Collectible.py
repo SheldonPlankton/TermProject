@@ -45,4 +45,5 @@ class Collectible(PyGameObj):
         self.item = itemArg
 
     def draw(self, screen):
+        self.shape.draw(screen, self.item.color)
         self.item.draw(screen, self.shape.c[0], self.shape.c[1], self.shape.r)
