@@ -36,9 +36,11 @@ from math import *
 
 class Item:
 
-    def __init__(self, nameArg, usesArg, colorArg = (0, 0, 0)):
+    def __init__(self, nameArg, usesArg, coolArg, colorArg = (0, 0, 0)):
         self.name = nameArg
         self.uses = usesArg
+        self.cool = coolArg
+        self.coolCurrent = 0
         self.color = colorArg
 
 # This allows the on-screen representation to depend on the item definition.
@@ -47,3 +49,6 @@ class Item:
     def draw(self, screen, x, y, r):
         pygame.draw.circle(screen, self.color,
                            (int(floor(x)), int(floor(y))), int(r))
+
+    def use(self, user, players, projectiles):
+        self.coolCurrent = self.cool

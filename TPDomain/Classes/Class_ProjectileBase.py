@@ -29,6 +29,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 from Classes.Class_Entity import Entity
+import pygame
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Class Def:
@@ -36,11 +37,18 @@ from Classes.Class_Entity import Entity
 
 class ProjectileBase(Entity):
 
-    def __init__(self, xArg, yArg, spdArg, dirArg, lifeArg):
+    def __init__(self, xArg, yArg, dirArg, spdArg, lifeArg, dmgArg,
+                 shapeArg, colorArg):
         super().__init__(xArg, yArg, spdArg, dirArg)
         self.life = lifeArg
+        self.dmg = dmgArg
+        self.shape = shapeArg
+        self.color = colorArg
 
-    def update(self):
-        self.lifeArg -= 1
-        if not lifeArg:
-            return True
+    def draw(self, screen):
+        self.shape.draw(screen, (0, 255, 220), (int(self.x), int(self.y)), 15)
+
+    def update(self, projectiles):
+        self.move()
+        self.life -= 1
+        return not self.life

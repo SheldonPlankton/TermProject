@@ -7,14 +7,10 @@
 # Andrew ID: eftippin
 # Recitation: H
 
-# Function: Make New Generation
-# Created 11/14/2018
+# Function: Image Handler
+# Created 11/25/2018
 
-# Version 0.0
-
-# Planned features / updates:
-#   o Main feature description
-#       - Subdescription
+# Version 1.0
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Changelog:
@@ -22,6 +18,7 @@
 
 # No changes yet!
 
+# Updated to vx.x on mm/dd/yyyy
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Imports:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -38,6 +35,6 @@
             #~~~~~~~~~~~~]         Helpers         [~~~~~~~~~~~~#
                 #==========================================#
 
-def geneNewGeneration():
-# TODO: write fitness code
-    pass
+                #==========================================#
+            #~~~~~~~~~~~~]        Subheader        [~~~~~~~~~~~~#
+                #==========================================#

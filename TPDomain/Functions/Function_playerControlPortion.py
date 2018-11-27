@@ -43,7 +43,7 @@ import pygame
             #~~~~~~~~~~~~]         Helpers         [~~~~~~~~~~~~#
                 #==========================================#
 
-def playerControlPortion(contManager, players, collectibles):
+def playerControlPortion(contManager, players, collectibles, projectiles):
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -55,9 +55,12 @@ def playerControlPortion(contManager, players, collectibles):
         player.look(contManager)
         player.collect(contManager, collectibles)
         player.swap(contManager)
+        player.useItem(contManager, players, projectiles)
         player.update()
 
-
+    for i in range(len(projectiles) - 1, -1, -1):
+        if projectiles[i].update(projectiles):
+            del projectiles[i]
 
     # Testing exit via button command
     if len(players) > 1:

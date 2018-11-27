@@ -36,7 +36,7 @@ BLACK    = (   0,   0,   0)
 WHITE    = ( 255, 255, 255)
 RED      = ( 255,   255,   0)
 
-def displayPortion(screen, text, players, collectibles):
+def displayPortion(screen, text, players, collectibles, projectiles):
     screen.fill(WHITE)
     for collectible in collectibles:
 
@@ -60,5 +60,7 @@ def displayPortion(screen, text, players, collectibles):
                     color = player.inv[player.curItem].color)
         text.printS(screen, "")
 
+    for projectile in projectiles:
+        projectile.draw(screen)
 
     pygame.display.flip()

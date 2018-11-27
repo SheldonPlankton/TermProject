@@ -7,14 +7,10 @@
 # Andrew ID: eftippin
 # Recitation: H
 
-# Function: Genetic Mutator
-# Created
+# Polygon
+# Created 11/25/2018
 
-# Version 0.0
-
-# Planned features / updates:
-#   o Main feature description
-#       - Subdescription
+# Version 1.0
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Changelog:
@@ -22,19 +18,23 @@
 
 # No changes yet!
 
-# Updated to vx.x on mm/dd/yyyy
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Imports:
+# Import:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-                #==========================================#
-            #~~~~~~~~~~~~]        Versions        [~~~~~~~~~~~~#
-                #==========================================#
+import pygame
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Body:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-def geneMutator(lst, mutProb):
-# TODO: write fitness code
-    pass
+class Polygon:
+
+    def __init__(self, pointsArg):
+        self.points = pointsArg
+
+    def collision(self, otherShape):
+        pass
+
+    def draw(self, parent, screen):
+        pygame.draw.polygon(screen, parent.color, self.points)

@@ -21,6 +21,10 @@
 
 # Updated to v0.3 on 11/17/2018
 # Changes:
+# o Reshuffled code in accordance with changes to structure of classes
+
+# Updated to v0.3 on 11/17/2018
+# Changes:
 # o Modified intialiazations to reflect restructuring of player
 
 # Updated to v0.3 on 11/14/2018
@@ -51,6 +55,7 @@ from Classes.Class_PlayerInputManager import PlayerInputManager
 from Classes.Class_Player import Player
 from Classes.Class_Collectible import Collectible
 from Classes.Class_Item import Item
+from Classes.Items.Item_Wep import BaseWeapon
                 #==========================================#
             #~~~~~~~~~~~~]        Functions        [~~~~~~~~~~~~#
                 #==========================================#
@@ -78,11 +83,12 @@ pygame.init()
 # Define a controller and a player state
 contManager = PlayerInputManager()
 
-collectibles = [Collectible(10 * i * 5, 10 * i + 200,
-                            10, Item("Item" + str(i), 2,
+collectibles = [Collectible(10 * i * 5, 10 * i + 200, 10,
+                            BaseWeapon("Item" + str(i), 20, 200, .5, 100, 20,
                             (randint(0,255), randint(0,255), randint(0,255)))) \
                             for i in range(20)]
 
+projectiles = []
 # Defines a screen to print player data
 text = TextPrint()
 screen = pygame.display.set_mode([800, 800])
@@ -108,12 +114,12 @@ while not done:
             #~~~~~~~~~~~~]      Control Phase      [~~~~~~~~~~~~#
                 #==========================================#
 
-    done = playerControlPortion(contManager, players, collectibles)
+    done = playerControlPortion(contManager, players, collectibles, projectiles)
 
                 #==========================================#
             #~~~~~~~~~~~~]      Display Phase      [~~~~~~~~~~~~#
                 #==========================================#
 
-    displayPortion(screen, text, players, collectibles)
+    displayPortion(screen, text, players, collectibles, projectiles)
 
 pygame.quit()

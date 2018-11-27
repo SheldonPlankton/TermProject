@@ -77,7 +77,7 @@ class Player(Entity):
         self.dfn = dfnArg
         self.armor = None
         self.inv = {}
-        for i in range(1,6): self.inv[i] = Item(None, 0)
+        for i in range(1,6): self.inv[i] = Item(None, 0, 0)
         self.curItem = 1
         self.colCool = 0
         self.swapCool = 0
@@ -112,7 +112,7 @@ class Player(Entity):
                 if contManager.conts[self.pNum].mouseClick()[2]:
                     self.curItem = (self.curItem % 5) + 1
 
-            self.swapCool = 50
+            self.swapCool = 150
 
 
 
@@ -169,9 +169,25 @@ class Player(Entity):
             elif self.control == "KEYBOARD":
                 if contManager.conts[self.pNum].mouseClick()[1]:
                     collectLoop(self, collectibles)
-            self.colCool = 100
+            self.colCool = 200
 
 
+
+
+
+    def useItem(self, contManager, players, projectiles):
+
+        def innerUseFunct(self, players, projectiles):
+            if self.inv[self.curItem].use(self, players, projectiles):
+                self.inv[self.curItem] = Item(None, 0, 0)
+
+        if self.control == "GAMEPAD":
+            if contManager.getButton(self.pNum, 4):
+                innerUseFunct(self, players, projectiles)
+
+        elif self.control == "KEYBOARD":
+            if contManager.conts[self.pNum].mouseClick()[0]:
+                innerUseFunct(self, players, projectiles)
 
 
 # Updates time based variables
@@ -181,6 +197,10 @@ class Player(Entity):
 
         if self.swapCool > 0:
             self.swapCool -= 1
+
+        for item in self.inv:
+            if self.inv[item].coolCurrent > 0:
+                self.inv[item].coolCurrent -= 1
 
                 #==========================================#
             #~~~~~~~~~~~~]       Draw Methods     [~~~~~~~~~~~~#
