@@ -55,6 +55,7 @@ class ProjectileBase(Entity):
 
         self.move()
         self.life -= 1
+
         if self.life:
             for player in players:
                 if player.pNum != self.owner and self.collision(player.shape):
@@ -65,7 +66,6 @@ class ProjectileBase(Entity):
         if self.life:
             for obst in scenery:
                 col = self.collision(obst.shape)
-                print(col)
                 if col[0]:
                     self.life = 0
                     break

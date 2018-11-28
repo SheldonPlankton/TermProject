@@ -90,6 +90,7 @@ def colCircPoly(circle, polygon, mtvCheck):
     if mtvCheck:
         smallest = circle.r
         axis = (1, 1)
+        
     for norm in getNorms(polygon.points):
         minPol, maxPol = getMinMaxProj(polygon, norm)
         minCir, maxCir = (projection(circle.c, norm) - circle.r,
@@ -97,10 +98,11 @@ def colCircPoly(circle, polygon, mtvCheck):
 
         if maxPol < minCir or maxCir < minPol:
             return False if not mtvCheck else False, minTransVect
-            
+
         if mtvCheck:
-            if min(abs(maxPol - minCir), abs(maxPol - minCir)) < smallest:
-                smallest = min(abs(maxPol - minCir), abs(maxPol - minCir))
+            if abs(maxCir - minPol) < smallest or \
+               abs(maxPol - minCir) < smallest:
+                smallest = min(abs(maxCir - minPol), abs(maxPol - minCir))
                 axis = norm
 
     if mtvCheck:

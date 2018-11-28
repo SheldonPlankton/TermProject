@@ -31,6 +31,7 @@ import os
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Icon:
+    
     def __init__(self, imgName):
         self.img = pygame.image.load(os.path.join('TPDomain', 'Assets', 'Image',
                                                   imgName + '.png'))
