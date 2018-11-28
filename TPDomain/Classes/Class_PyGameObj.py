@@ -37,11 +37,12 @@ import pygame
 
 class PyGameObj:
 
-    def __init__(self, shapeArg):
+    def __init__(self, shapeArg, colorArg = (0, 0, 0)):
         self.shape = shapeArg
+        self.color = colorArg
 
     def draw(self, screen):
-        self.shape.draw(self.color, screen)
+        self.shape.draw(screen, self.color)
 
     def collision(self, other):
         return self.shape.collision(other)

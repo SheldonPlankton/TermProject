@@ -38,16 +38,36 @@ import pygame
 class ProjectileBase(Entity):
 
     def __init__(self, dirArg, spdArg, lifeArg, dmgArg,
-                 shapeArg, colorArg):
+                 shapeArg, colorArg, ownerArg):
         super().__init__(shapeArg, spdArg, dirArg)
         self.life = lifeArg
         self.dmg = dmgArg
         self.color = colorArg
+        self.owner = ownerArg
 
     def draw(self, screen):
         self.shape.draw(screen, self.color)
 
-    def update(self, projectiles):
+    def collision(self, otherShape):
+        return self.shape.collision(otherShape)
+
+    def update(self, projectiles, scenery, players):
+
         self.move()
         self.life -= 1
+        if self.life:
+            for player in players:
+                if player.pNum != self.owner and self.collision(player.shape):
+                    self.life = 0
+                    player.life -= self.dmg
+                    break
+
+        if self.life:
+            for obst in scenery:
+                col = self.collision(obst.shape)
+                print(col)
+                if col[0]:
+                    self.life = 0
+                    break
+
         return not self.life

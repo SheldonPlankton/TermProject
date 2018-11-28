@@ -50,7 +50,8 @@ from math import *
 from Classes.Class_Entity import Entity
 from Classes.Class_Item import Item
 from Classes.Class_Collectible import Collectible
-from Classes.Package_Geometry import Circle
+from Classes.Package_Geometry import *
+
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Class Def:
@@ -66,13 +67,14 @@ class Player(Entity):
             #~~~~~~~~~~~~]       Metafuncts       [~~~~~~~~~~~~#
                 #==========================================#
 
-    def __init__(self, controlArg, pNumArg, xArg, yArg, rArg,
+    def __init__(self, controlArg, pNumArg, xArg, yArg, rArg, lifeArg,
                  spdArg, dirArg, lookDirArg, dfnArg, atkArg):
 
         super().__init__(Circle((xArg, yArg), rArg), spdArg, dirArg)
         self.control = controlArg
         self.pNum = pNumArg
         self.lookDir = lookDirArg
+        self.life = lifeArg
         self.atk = atkArg
         self.dfn = dfnArg
         self.armor = None
@@ -169,7 +171,11 @@ class Player(Entity):
 
 
 
-
+    def collision(self, otherShape):
+        collides = generalCollider(self.shape, otherShape, True)
+        if collides[0]:
+            self.shape.c[0] += collides[1][0]
+            self.shape.c[1] += collides[1][1]
 
     def useItem(self, contManager, players, projectiles):
 

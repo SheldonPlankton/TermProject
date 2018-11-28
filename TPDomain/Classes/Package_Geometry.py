@@ -82,15 +82,32 @@ def colCircCirc(c1, r1, c2, r2):
 #version of the separating axis theorem. Effectively, the minimum and maximum
 #projections onto an axis for a circle will always be the projection of the
 #center plus or minus the radius. It then returns true if there is collision,
-#or false if there is not
-def colCircPoly(circle, polygon):
+#or false if there is not. Finally, this function will also handle
+#searching for a minimum translation vector, since players are assumed to
+#circles
+def colCircPoly(circle, polygon, mtvCheck):
+    minTransVect = (0, 0)
+    if mtvCheck:
+        smallest = circle.r
+        axis = (1, 1)
     for norm in getNorms(polygon.points):
         minPol, maxPol = getMinMaxProj(polygon, norm)
         minCir, maxCir = (projection(circle.c, norm) - circle.r,
                           projection(circle.c, norm) + circle.r)
+
         if maxPol < minCir or maxCir < minPol:
-            return False
-    return True
+            return False if not mtvCheck else False, minTransVect
+            
+        if mtvCheck:
+            if min(abs(maxPol - minCir), abs(maxPol - minCir)) < smallest:
+                smallest = min(abs(maxPol - minCir), abs(maxPol - minCir))
+                axis = norm
+
+    if mtvCheck:
+        theta = atan2(axis[1], axis[0])
+        minTransVect = (smallest * cos(theta), smallest * sin(theta))
+
+    return True if not mtvCheck else True, minTransVect
 
                 #==========================================#
             #~~~~~~~~~~~~]        Collision        [~~~~~~~~~~~~#
@@ -117,7 +134,7 @@ def sepAxisTheoremCheck(shape1, shape2, axis):
 
 # This checks for a separating axis and returns False as soon as one is found,
 #indicating no collision
-def generalCollider(shape1, shape2):
+def generalCollider(shape1, shape2, mtvCheck = False):
     if type(shape1) == Circle == type(shape2):
         return colCircCirc(shape1.c, shape1.r, shape2.c, shape2.r)
 
@@ -130,10 +147,10 @@ def generalCollider(shape1, shape2):
         return True
 
     elif type(shape1) == Circle:
-        return colCircPoly(shape1, shape2)
+        return colCircPoly(shape1, shape2, mtvCheck)
 
     elif type(shape2) == Circle:
-        return colCircPoly(shape2, shape1)
+        return colCircPoly(shape2, shape1, mtvCheck)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Class Defs:
