@@ -78,6 +78,29 @@ def projection(vect1, vect2):
 def colCircCirc(c1, r1, c2, r2):
     return eucDist(c1, c2) < r1 + r2
 
+# This take a line segment and a point and return the distance between the
+#point and the line segment. lp1 and lp2 define the line, p0 is the
+#point to check. This equation comes from reading some wikipedia articles.
+def distPointLine(lp1, lp2, p0):
+    if lp1[0] - lp2[0] == 0:
+        return abs(p0[0]-lp2[0])
+
+    elif lp1[1] - lp2[1] == 0:
+        return abs(p0[1]-lp2[1])
+
+    termA = (lp2[1] - lp1[1]) * p0[0]
+    termB = (lp2[0] - lp1[0]) * p0[1]
+    termC = lp2[0]*lp1[1] - lp2[1]*lp1[0]
+    termD = sqrt((lp2[1] - lp1[1])**2 + (lp2[0] - lp1[0])**2)
+    return abs(termC + termA - termB) / termD
+
+def colCircLineSeg(lp1, lp2, circ):
+    if (min(lp1[0], lp2[0]) < circ.c[0] < max(lp1[0], lp2[0]) and \
+       min(lp1[1], lp2[1]) < circ.c[1] < max(lp1[1], lp2[1])) and \
+       distPointLine(lp1, lp2, (circ.c[0], circ.c[1])) < circ.r:
+       return True
+    return False
+
 # Checks for collision between a polygon and a circle using a modified
 #version of the separating axis theorem. Effectively, the minimum and maximum
 #projections onto an axis for a circle will always be the projection of the
@@ -85,31 +108,19 @@ def colCircCirc(c1, r1, c2, r2):
 #or false if there is not. Finally, this function will also handle
 #searching for a minimum translation vector, since players are assumed to
 #circles
-def colCircPoly(circle, polygon, mtvCheck):
+def colCircPoly(circle, polygon, mtvCheck = False):
     minTransVect = (0, 0)
-    if mtvCheck:
-        smallest = circle.r
-        axis = (1, 1)
-        
-    for norm in getNorms(polygon.points):
-        minPol, maxPol = getMinMaxProj(polygon, norm)
-        minCir, maxCir = (projection(circle.c, norm) - circle.r,
-                          projection(circle.c, norm) + circle.r)
 
-        if maxPol < minCir or maxCir < minPol:
-            return False if not mtvCheck else False, minTransVect
+    for side in getSides(polygon.points):
+        norm = getUnitNormal(*side)
 
-        if mtvCheck:
-            if abs(maxCir - minPol) < smallest or \
-               abs(maxPol - minCir) < smallest:
-                smallest = min(abs(maxCir - minPol), abs(maxPol - minCir))
-                axis = norm
+        if colCircLineSeg(*side, circle):
+            if mtvCheck:
+                theta = atan2(norm[1], norm[0])
+                minTransVect = (-5 * cos(theta), -5 * sin(theta))
+            return True if not mtvCheck else True, minTransVect
 
-    if mtvCheck:
-        theta = atan2(axis[1], axis[0])
-        minTransVect = (smallest * cos(theta), smallest * sin(theta))
-
-    return True if not mtvCheck else True, minTransVect
+    return False if not mtvCheck else False, minTransVect
 
                 #==========================================#
             #~~~~~~~~~~~~]        Collision        [~~~~~~~~~~~~#
@@ -141,8 +152,6 @@ def generalCollider(shape1, shape2, mtvCheck = False):
         return colCircCirc(shape1.c, shape1.r, shape2.c, shape2.r)
 
     elif type(shape1) == Polygon == type(shape2):
-        norms = [(p1, p2) for p1, p2 in getNorms(shape1.points)] + \
-                [(p3, p4) for p3, p4 in getNorms(shape2.points)]
 
         for norm in getNorms(shape2.points):
             if sepAxisTheoremCheck(shape1, shape2, norm): return False
@@ -162,11 +171,11 @@ def generalCollider(shape1, shape2, mtvCheck = False):
 #with both collisional and drawing methods bundled inside
 class Circle:
 
-    def __init__(self, centerArg, rArg, imgArg = False):
+    def __init__(self, centerArg, rArg, imgArg = False, angArg = 0):
         self.c = list(centerArg)
         self.r = rArg
         if imgArg:
-            self.img = Icon(imgArg)
+            self.img = Icon(imgArg, angArg)
 
     def collision(self, other):
         return generalCollider(self, other)
@@ -177,8 +186,9 @@ class Circle:
                                (int(self.c[0]), int(self.c[1])),
                                int(self.r))
         else:
-            self.img.draw(screen, (int(self.c[0] - sqrt((self.r**2)/2)),
-                                   int(self.c[1] - sqrt((self.r**2)/2))))
+            self.img.draw(screen,
+                         (int(self.c[0] - sqrt((self.r**2)/2)),
+                         int(self.c[1] - sqrt((self.r**2)/2))))
 
 class Polygon:
 
@@ -190,6 +200,3 @@ class Polygon:
 
     def draw(self, screen, color):
         pygame.draw.polygon(screen, color, self.points)
-
-print(generalCollider(Polygon([(0,0), (0,1), (1,0)]),
-                      Polygon([(0,1.0001), (8,1), (1,2), (1,1)])))

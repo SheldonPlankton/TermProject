@@ -19,8 +19,8 @@
 # Changelog:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Updated to v0.3 on 11/17/2018
-# Changes:
+# Updated to v0.4 on 11/17/2018
+# Changes:d
 # o Reshuffled code in accordance with changes to structure of classes
 
 # Updated to v0.3 on 11/17/2018
@@ -40,93 +40,33 @@
 # Imports:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-"""
-import module_manager
-module_manager.ignore_module(Classes.Class_TextPrint)
-module_manager.review()
-"""
-
-                #==========================================#
-            #~~~~~~~~~~~~]        Classes         [~~~~~~~~~~~~#
-                #==========================================#
-
-from Classes.Class_TextPrint import TextPrint
-from Classes.Class_PlayerInputManager import PlayerInputManager
-from Classes.Class_Player import Player
-from Classes.Class_Collectible import Collectible
-from Classes.Class_Item import Item
-from Classes.Class_PyGameObj import PyGameObj
-from Classes.Items.Item_Wep import BaseWeapon
-from Classes.Package_Geometry import *
-
                 #==========================================#
             #~~~~~~~~~~~~]        Functions        [~~~~~~~~~~~~#
                 #==========================================#
 
-from Functions.Function_playerControlPortion import playerControlPortion
-from Functions.Function_displayPortion import displayPortion
+from Functions.Function_runPVPGame import runPVPGame
 
                 #==========================================#
             #~~~~~~~~~~~~]         Modules         [~~~~~~~~~~~~#
                 #==========================================#
 
 import pygame
-from math import *
-from random import *
+from math import inf
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Game Body:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# Define some colors
-
-# Control game and initialdize
-done = False
 pygame.init()
-
-# Define a controller and a player state
-contManager = PlayerInputManager()
-
-collectibles = [Collectible(randint(0, 10 * i * 5),
-                            randint(0, 10 * i + 200), 10,
-                            BaseWeapon("Item" + str(i), 20, 200, .5, 1000, 20,
-                            5, (randint(0,255), randint(0,255), randint(0,255)),
-                            (120, 0, 240), 'Test')) \
-                            for i in range(20)]
-
-projectiles = []
-# Defines a screen to print player data
-text = TextPrint()
-screen = pygame.display.set_mode([800, 800])
-pygame.display.set_caption("My Game")
-
-players = [Player("KEYBOARD", pygame.joystick.get_count() + 1,
-           200, 200, 20, 400, .3, pi, 0, 10, 10)]
-
-# Initializes even if no joystick (only adds joystick if controller plugged in)
-if pygame.joystick.get_count() > 0:
-    players = [Player("GAMEPAD", 1, 0, 200, 20, 400, .3, pi, 0, 10, 10)] + players
-    contManager.addConts(1)
-    contManager.startCont(1)
-
-scenery = [PyGameObj(Polygon([(300,400),(200,500),(400,600),
-                              (600,500),(500,400)]))]
-
+screen = pygame.display.set_mode([1200, 800])
+pygame.display.set_caption("Term Project")
+done = False
 while not done:
+
+    if runPVPGame(screen, inf):
+        done = True
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
-
-                #==========================================#
-            #~~~~~~~~~~~~]      Control Phase      [~~~~~~~~~~~~#
-                #==========================================#
-
-    done = playerControlPortion(contManager, players, collectibles, projectiles,
-                                scenery)
-
-                #==========================================#
-            #~~~~~~~~~~~~]      Display Phase      [~~~~~~~~~~~~#
-                #==========================================#
-
-    displayPortion(screen, text, players, collectibles, projectiles, scenery)
 
 pygame.quit()

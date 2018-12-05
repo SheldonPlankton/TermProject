@@ -47,7 +47,7 @@ def displayPortion(screen, text, players, collectibles, projectiles, scenery):
     for player in players:
 
         player.draw(screen)
-        player._debug_lookDirCheck(screen)
+        #player._debug_lookDirCheck(screen)
 
         text.printS(screen,
                     "Player{:d} x:{:>6.2f}".format(player.pNum,

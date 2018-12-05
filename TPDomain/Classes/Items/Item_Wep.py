@@ -52,8 +52,7 @@ class BaseWeapon(Classes.Class_Item.Item):
                             Circle((
                             user.shape.c[0] + user.shape.r * cos(user.lookDir),
                             user.shape.c[1] + user.shape.r * sin(user.lookDir),
-                            ), self.pRad, imgArg = 'Test'),
-                            self.pCol, user.pNum
-                            )
+                            ), self.pRad, imgArg = 'Test',
+                            angArg = -user.lookDir), self.pCol, user.pNum)
                            ]
             return not self.uses

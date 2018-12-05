@@ -61,12 +61,16 @@ def playerControlPortion(contManager, players, collectibles, projectiles,
             player.collision(obst.shape)
         player.update()
 
+        if player.pNum < pygame.joystick.get_count():
+            if contManager.getButton(player.pNum, 7):
+                print("Exiting")
+                return True
+        else:
+            if pygame.key.get_pressed()[pygame.K_ESCAPE]:
+                return True
+
     for i in range(len(projectiles) - 1, -1, -1):
         if projectiles[i].update(projectiles, scenery, players):
             del projectiles[i]
 
     # Testing exit via button command
-    if len(players) > 1:
-        if contManager.getButton(1, 7):
-            print("Exiting")
-            return True

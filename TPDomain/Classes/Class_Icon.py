@@ -25,16 +25,18 @@
 
 import pygame
 import os
+import math
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Body:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Icon:
-    
-    def __init__(self, imgName):
+
+    def __init__(self, imgName, ang = 0):
         self.img = pygame.image.load(os.path.join('TPDomain', 'Assets', 'Image',
                                                   imgName + '.png'))
+        self.img = pygame.transform.rotate(self.img, math.degrees(0))
 
     def draw(self, screen, pos):
         screen.blit(self.img, pos)

@@ -67,14 +67,15 @@ class Player(Entity):
             #~~~~~~~~~~~~]       Metafuncts       [~~~~~~~~~~~~#
                 #==========================================#
 
-    def __init__(self, controlArg, pNumArg, xArg, yArg, rArg, lifeArg,
+    def __init__(self, controlArg, pNumArg, xArg, yArg, lifeArg,
                  spdArg, dirArg, lookDirArg, dfnArg, atkArg):
 
-        super().__init__(Circle((xArg, yArg), rArg), spdArg, dirArg)
+        super().__init__(Circle((xArg, yArg), 10), spdArg, dirArg)
         self.control = controlArg
         self.pNum = pNumArg
         self.lookDir = lookDirArg
         self.life = lifeArg
+        self.maxLife = lifeArg
         self.atk = atkArg
         self.dfn = dfnArg
         self.armor = None
@@ -83,8 +84,7 @@ class Player(Entity):
         self.curItem = 1
         self.colCool = 0
         self.swapCool = 0
-
-        # TODO: Refine equips into inventory
+        self.wins = 0
 
                 #==========================================#
             #~~~~~~~~~~~~]     Control Methods    [~~~~~~~~~~~~#
@@ -147,7 +147,6 @@ class Player(Entity):
 
 
 
-
     def collect(self, contManager, collectibles):
         pygame.event.get()
 
@@ -191,6 +190,9 @@ class Player(Entity):
             if contManager.conts[self.pNum].mouseClick()[0]:
                 innerUseFunct(self, players, projectiles)
 
+    def heal(self, healAmount):
+        self.life += healAmount if healAmount <= self.maxLife - self.life \
+                     else max(self.maxLife - self.life, 0)
 
 # Updates time based variables
     def update(self):
@@ -210,14 +212,3 @@ class Player(Entity):
 
     def draw(self, screen, color = (0, 0, 0)):
         self.shape.draw(screen, color)
-
-
-                #==========================================#
-            #~~~~~~~~~~~~]     Debug Methods      [~~~~~~~~~~~~#
-                #==========================================#
-
-    def _debug_lookDirCheck(self, screen):
-        pygame.draw.line(screen, (0, 0, 0), (floor(self.shape.c[0]),
-                                             floor(self.shape.c[1])),
-                         (floor(self.shape.c[0]) + 100 * cos(self.lookDir),
-                          floor(self.shape.c[1]) + 100 * sin(self.lookDir)))

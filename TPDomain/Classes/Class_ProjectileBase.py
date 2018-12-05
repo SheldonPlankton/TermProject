@@ -52,22 +52,21 @@ class ProjectileBase(Entity):
         return self.shape.collision(otherShape)
 
     def update(self, projectiles, scenery, players):
-
-        self.move()
-        self.life -= 1
+        if 0 > self.shape.c[0] or self.shape.c[0] > 1200: return True
+        if 0 > self.shape.c[1] or self.shape.c[1] > 800: return True
 
         if self.life:
             for player in players:
                 if player.pNum != self.owner and self.collision(player.shape):
-                    self.life = 0
                     player.life -= self.dmg
-                    break
+                    return True
 
         if self.life:
             for obst in scenery:
                 col = self.collision(obst.shape)
                 if col[0]:
-                    self.life = 0
-                    break
-
+                    return True
+        self.move()
+        self.life -= 1
+        
         return not self.life
