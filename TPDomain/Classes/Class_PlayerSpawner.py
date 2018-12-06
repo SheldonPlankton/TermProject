@@ -7,14 +7,9 @@
 # Andrew ID: eftippin
 # Recitation: H
 
-# "Project Name"
-# Created
+# Class: Player Spawner
 
-# Version #
 
-# Planned features / updates:
-#   o Main feature description
-#       - Subdescription
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Description:

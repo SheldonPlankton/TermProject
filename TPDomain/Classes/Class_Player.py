@@ -10,14 +10,14 @@
 # Class: Player
 # Created 11/10/2018
 
-# Version 0.5
-
-# Planned features / updates:
-#   o Generalize draw function
+# Version 1.0
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Changelog:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Updated to v1.0
+#   o Finalized all methods and cleaned variables up
 
 # Updated to v0.5 on 11/17/2018
 #   o Updated player inventory structure, added item switch functionality
@@ -68,8 +68,7 @@ class Player(Entity):
                 #==========================================#
 
     def __init__(self, controlArg, pNumArg, xArg, yArg, lifeArg,
-                 spdArg, dirArg, lookDirArg, dfnArg, atkArg,
-                 colorArg = (0,0,0)):
+                 spdArg, dirArg, lookDirArg, colorArg = (0,0,0)):
 
         super().__init__(Circle((xArg, yArg), 10), spdArg, dirArg)
         self.control = controlArg
@@ -77,25 +76,33 @@ class Player(Entity):
         self.lookDir = lookDirArg
         self.life = lifeArg
         self.maxLife = lifeArg
-        self.atk = atkArg
-        self.dfn = dfnArg
-        self.armor = None
+
+        # Generate default inventory
         self.inv = {}
         for i in range(1,6): self.inv[i] = Item(None, 0, 0)
-        self.curItem = 1
-        self.colCool = 0
-        self.swapCool = 0
-        self.lastHit = None
-        self.wins = 0
+
+        self.curItem = 1    # Current item being used
+        self.colCool = 0    # Collect cooldown
+        self.swapCool = 0   # Swap cooldown
+
+        self.lastHit = None # Stores the player that last hit this player
+        self.wins = 0       # Number of kills
+
         self.color = colorArg
 
+    # This sets the respawn point of the player. This is called inside of the
+    #init function of the player spawner object.
     def setSpawn(self, spawner):
         self.spawn = (spawner.c[0], spawner.c[1])
         self.shape.c = list(self.spawn)
+
+
                 #==========================================#
             #~~~~~~~~~~~~]     Control Methods    [~~~~~~~~~~~~#
                 #==========================================#
 
+    # This puts an item into the player's inventory, then creates a
+    #container in game for the item that was already there.
     def equip(self, item, collectibles):
         if self.inv[self.curItem].name == None:
             self.inv[self.curItem] = item
@@ -106,13 +113,14 @@ class Player(Entity):
             self.inv[self.curItem] = item
 
 
-
+    # This changes what item the player is currently using by pointing
+    #to an item in the dictionary of items the player holds.
     def swap(self, contManager):
         pygame.event.get()
         if not self.swapCool:
 
             if self.control == "GAMEPAD":
-                if contManager.getButton(self.pNum, 5):
+                if contManager.getButton(self.pNum, 4):
                     self.curItem = (self.curItem % 5) + 1
                     self.swapCool = 50
 
@@ -122,7 +130,7 @@ class Player(Entity):
                     self.swapCool = 50
 
 
-
+    # This controls the direction that the player is looking
     def look(self, contManager):
         if self.control == "GAMEPAD":
             self.lookDir = atan2(contManager.getAxis(self.pNum, 3),
@@ -138,7 +146,7 @@ class Player(Entity):
 
 
 
-# Handles player movement changes.
+    # Handles player movement changes.
     def move(self, contManager):
         if self.control == "GAMEPAD":
             if sqrt(contManager.getAxis(self.pNum, 1)**2 +
@@ -156,7 +164,10 @@ class Player(Entity):
     def collect(self, contManager, collectibles):
         pygame.event.get()
 
-        # Inner function for looping over collectibles
+        # Inner function for looping over collectibles. Loops over all
+        #collectibles, and if collision is detected, it calls the equip
+        #function on the collided collectible and deletes the in-game container
+        #of the collected item.
         def collectLoop(self, collectibles):
             for i in range(len(collectibles) - 1, -1, -1):
                 if collectibles[i].collision(self.shape):
@@ -185,18 +196,21 @@ class Player(Entity):
 
     def useItem(self, contManager, players, projectiles):
 
+        # This calls the item's use function, which returns a boolean True
+        #value if it runs out of uses
         def innerUseFunct(self, players, projectiles):
             if self.inv[self.curItem].use(self, players, projectiles):
                 self.inv[self.curItem] = Item(None, 0, 0)
 
         if self.control == "GAMEPAD":
-            if contManager.getButton(self.pNum, 4):
+            if contManager.getButton(self.pNum, 5):
                 innerUseFunct(self, players, projectiles)
 
         elif self.control == "KEYBOARD":
             if contManager.conts[self.pNum].mouseClick()[0]:
                 innerUseFunct(self, players, projectiles)
 
+    # This calculates health healed by potions.
     def heal(self, healAmount):
         self.life += healAmount if healAmount <= self.maxLife - self.life \
                      else max(self.maxLife - self.life, 0)

@@ -7,20 +7,16 @@
 # Andrew ID: eftippin
 # Recitation: H
 
-# "Project Name"
-# Created
+# Function: Run PVP Game
 
-# Version #
-
-# Planned features / updates:
-#   o Main feature description
-#       - Subdescription
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Changelog:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# No changes yet!
+"""
+    This defines the main game loop called in the GameShell.py file.
+"""
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Imports:
@@ -72,19 +68,26 @@ def runPVPGame(screen, length):
     # Define a controller and a player state
     contManager = PlayerInputManager()
 
+    # Create empty collectibles list
     collectibles = []
 
     # Create empty projectiles list
     projectiles = []
 
+    # Initialize the keyboard and mouse player
     players = [Player("KEYBOARD", pygame.joystick.get_count() + 1,
-               200, 200, 400, 2, pi, 0, 10, 10, (100, 200, 30))]
+               200, 200, 400, 2, pi, 0, (randint(100, 255),
+                                         randint(100, 255),
+                                         randint(100, 255)))]
 
-    # Initializes even if no joystick (only adds joystick if controller plugged in)
+    # Initializes even if no joystick. only adds joystick if controllers
+    #are available.
     if pygame.joystick.get_count() > 0:
         for i in range(pygame.joystick.get_count(), 0, -1):
             players = [Player("GAMEPAD", i, 10, 200,
-                              400, 2, pi, 0, 10, 10)] + players
+                              400, 2, pi, 0, (randint(100, 255),
+                                              randint(100, 255),
+                                              randint(100, 255)))] + players
             contManager.addConts(i)
             contManager.startCont(i)
 
@@ -94,10 +97,11 @@ def runPVPGame(screen, length):
                PyGameObj(Polygon([(1200, 800), (600, 794), (0, 800)])),
                PyGameObj(Polygon([(0, 800), (6, 450), (0, 100)]))]
 
+    # Generates player spawners for each player
     for player in players:
-        scenery += [PlayerSpawner([randint(100, 1100),
-                                   randint(200, 700)],
+        scenery += [PlayerSpawner([randint(100, 1100), randint(200, 700)],
                                   player)]
+
     # Generate item spawners before scenery so that nothing spawns inside of
     #scenery. The random scenery generator will need to consider these. We add
     #the length of scenery on the random generation call so that we don't
@@ -109,6 +113,7 @@ def runPVPGame(screen, length):
     # Initialize GUI boxes
     gui = []
     for player in players:
+
         # Create a Player info box and point it to a player
         gui += [GUIBoxPlayerInfo(player)]
 
@@ -123,6 +128,7 @@ def runPVPGame(screen, length):
                 #~~~~~~~~~~~~]      Control Phase      [~~~~~~~~~~~~#
                     #==========================================#
 
+        # 'Controller' in MVC terms
         if playerControlPortion(contManager, players, collectibles,
                                 projectiles, scenery):
             return True
@@ -131,5 +137,6 @@ def runPVPGame(screen, length):
                 #~~~~~~~~~~~~]      Display Phase      [~~~~~~~~~~~~#
                     #==========================================#
 
+        # 'View' in MVC terms
         displayPortion(screen, gui, players, collectibles, projectiles, scenery,
                        timeDisp, length)

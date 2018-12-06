@@ -17,8 +17,8 @@
     This package is used to first create a semi-random scenery object, and
 then recursively create a valid random list of scenery objects such no single
 scenery object has collision with any other object. This is done with a sort
-of twisted backtracking solution in tandem with the separating axis collision
-detector from the geometry package.
+of bastardized version of a backtracking solution in tandem with the separating
+axis collision detector from the geometry package.
 """
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -58,13 +58,25 @@ def randomSceneryObject(verts, center, baseRad, radDev, angDev):
                       randint(100, 150),
                       randint(20, 100)))
 
+# This is the recursive scenery generator. If the number of objects desired
+#has been created, great, return the list of generated scenery objects.
+#If not, then create a new object, test its collision with all other objects
+#in the game, then, if no collisions occur, put the new object in the scenery
+#list and recursively call the function again.
+
 def randomSceneryGen(screenSize, pieces, scenery = []):
     scenery = copy(scenery)
 
     if len(scenery) == pieces: return scenery
 
+    # This loops until it hits a valid scenery object, in which case it
+    #recursively calls this function and returns the result.
     while True:
+
+        # Flag that turns on if the generated scenery object has collision
+        #with any other object
         skip = False
+
         # Generate a new random scenery object
         newSceneryPiece = randomSceneryObject(randint(3, 7),
                                               (randint(0, screenSize[0]),

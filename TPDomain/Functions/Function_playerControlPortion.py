@@ -48,28 +48,34 @@ import time
 def playerControlPortion(contManager, players, collectibles, projectiles,
                          scenery):
 
+    # Look for quit events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             return True
 
+    # Spawn new items
+    for obst in scenery:
+        if type(obst) == ItemSpawner: obst.spawn(collectibles)
 
+    # iterate over projectiles, checking for collision
     for i in range(len(projectiles) - 1, -1, -1):
         if projectiles[i].update(projectiles, scenery, players):
             del projectiles[i]
 
-    # Player control loop
+
+
+    # Player control loop, call all of the relevant player funtions
     for player in players:
+        player.update()
         player.move(contManager)
         player.look(contManager)
         player.collect(contManager, collectibles)
         player.swap(contManager)
         player.useItem(contManager, players, projectiles)
 
+        # Check collision with players and foreground
         for obst in scenery:
             if type(obst) == PyGameObj: player.collision(obst.shape)
-            if type(obst) == ItemSpawner: obst.spawn(collectibles)
-
-        player.update()
 
         if player.pNum < pygame.joystick.get_count():
             if contManager.getButton(player.pNum, 7):

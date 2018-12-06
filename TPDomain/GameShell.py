@@ -7,17 +7,28 @@
 # Andrew ID: eftippin
 # Recitation: H
 
-# Experiment 4: Game Shell
+# Term Project: Game Shell
 # Created 11/11/2018
 
-# Version 0.4
+# Version 1.0
 
-# Planned features / updates:
-#   o Make it possible to obtain items.
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Description:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+"""
+    This is the main game loop. This runs until the player exits and calls the
+PVP function. Execute this to play the game.
+"""
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Changelog:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Updated to v1.0
+# o Moved all game related stuff into exterior function, left main
+#       loop and initialization to this file.
 
 # Updated to v0.4 on 11/17/2018
 # Changes:
@@ -56,13 +67,14 @@ from math import inf
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Game Body:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 pygame.init()
 screen = pygame.display.set_mode([1200, 800])
 pygame.display.set_caption("Term Project")
 done = False
 while not done:
 
-    if runPVPGame(screen, inf):
+    if runPVPGame(screen, 100000):
         done = True
 
     for event in pygame.event.get():
