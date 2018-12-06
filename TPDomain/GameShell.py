@@ -74,7 +74,7 @@ pygame.display.set_caption("Term Project")
 done = False
 while not done:
 
-    if runPVPGame(screen, 100000):
+    if runPVPGame(screen, 6000):
         done = True
 
     for event in pygame.event.get():

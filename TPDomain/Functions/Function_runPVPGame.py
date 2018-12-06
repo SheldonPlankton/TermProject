@@ -58,6 +58,15 @@ from random import *
 # Body:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# A small internal helper function to simplify adding multiple randomly
+#placed item spawners.
+def addRandomSpawners(min, max, xRange, yRange, w, h, timer, items = None):
+    spawners = []
+    for i in range(randint(min, max)):
+        spawners += [ItemSpawner(randint(xRange[0], xRange[1]),
+                                 randint(yRange[0], yRange[1]),
+                                 w, h, timer, items)]
+    return spawners
 
 def runPVPGame(screen, length):
 
@@ -106,7 +115,14 @@ def runPVPGame(screen, length):
     #scenery. The random scenery generator will need to consider these. We add
     #the length of scenery on the random generation call so that we don't
     #consider the pre-formed and special scenery objects when we generate.
-    scenery += [ItemSpawner(50, 100, 40, 40, 5800, ['Rhyno'])]
+    #Additionally, we call addRandomSpawner to get a few random spawners.
+    scenery += addRandomSpawners(4, 6, (20, 1180), (120, 780), 30, 30, 5000)
+    scenery += addRandomSpawners(2, 4, (20, 1180), (120, 780), 30, 30, 9000,
+                                 ["Stynger"])
+    scenery += addRandomSpawners(3, 5, (20, 1180), (120, 780), 30, 30, 9000,
+                                 ["Rhyno"])
+    scenery += addRandomSpawners(0, 2, (20, 1180), (120, 780), 30, 30, 9000,
+                                 ["Valhalla"])
     scenery += randomSceneryGen((1200, 800),
                                 randint(15, 30) + len(scenery), scenery)
 
@@ -119,10 +135,13 @@ def runPVPGame(screen, length):
 
     # Game loop, only terminates when time runs out or player escapes.
     timeDisp = TextObj(20, 535, 105)
+    resetLength = length
     while not done and length:
 
         pygame.event.pump()
         length -= 1
+        if pygame.key.get_pressed()[pygame.K_r]:
+            length = resetLength
 
                     #==========================================#
                 #~~~~~~~~~~~~]      Control Phase      [~~~~~~~~~~~~#

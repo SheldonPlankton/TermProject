@@ -48,6 +48,6 @@ class PlayerSpawner:
 
     def draw(self, screen):
         self.shape.draw(screen,
-                        [min(self.player.color[0] + 75, 255),
-                         min(self.player.color[1] + 75, 255),
-                         min(self.player.color[2] + 75, 255)])
+                        [max(self.player.color[0] - 50, 0),
+                         max(self.player.color[1] - 50, 0),
+                         max(self.player.color[2] - 50, 0)])

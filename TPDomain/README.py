@@ -22,8 +22,8 @@ retro space shooter type games where two players duke it out in a rather
 simple, geometric map.
 
     The project itself allows players to, as mentioned before, duke it out in
-a 2-dimensional arena where they can collect items and run around a procedurally
-generated map.
+a 2-dimensional arena where they can collect items and run around in a small
+procedurally generated map.
 """
 
                 #==========================================#
@@ -59,9 +59,10 @@ FOR CONTROLLER:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
-    First, this game ONLY supports multiplayer if controllers are plugged into the
-computer, but it should support an arbitrary number of players. Additionally,
-for the keyboard player, you will need a mouse with a scroll wheel.
+    First, this game ONLY supports multiplayer if controllers are plugged
+into the computer, but it should support an arbitrary number of players.
+Additionally, for the keyboard player, you will need a mouse with a scroll
+wheel.
 
 
     Next, once you have your controllers plugged in, simply follow the
@@ -104,4 +105,13 @@ pip install pygame
 pip install scipy
 
     With this done, you should be able to run the GameShell.py file.
+"""
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Shortcut Commands:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+"""
+Hit r on the keyboard to reset game time.
+Press escape at any time to end the game.
 """

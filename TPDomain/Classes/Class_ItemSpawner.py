@@ -79,7 +79,7 @@ class ItemSpawner:
 
             # Otherwise spawn a potion
             else:
-                collectbles += [Collectible(randint(0, 800),
+                collectibles += [Collectible(randint(0, 800),
                                              randint(100, 800), 10,
                                              HealItem("Potion", 4, 50, 50,
-                                             (0, 255, 240), 'Potion'))]
+                                             (120, 100, 230), 'Potion'))]
