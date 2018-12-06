@@ -32,7 +32,8 @@ from Classes.Package_Geometry import Polygon
 # Function Def:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-def displayPortion(screen, gui, players, collectibles, projectiles, scenery):
+def displayPortion(screen, gui, players, collectibles, projectiles, scenery,
+                   time, length):
     screen.fill((255, 255, 150))
 
     for collectible in collectibles:
@@ -52,4 +53,8 @@ def displayPortion(screen, gui, players, collectibles, projectiles, scenery):
     for box in gui:
         box.draw(screen)
 
+    pygame.draw.rect(screen, (120, 120, 120), pygame.Rect(530, 100, 120, 20))
+    time.printS(screen, 'Time left:' + str(length // 600) + ':' +
+                ("0" if len(str(length // 10 % 60)) < 2 else "") +
+                str(length // 10 % 60))
     pygame.display.flip()

@@ -40,6 +40,7 @@ from Classes.Items.Item_Wep import BaseWeapon
 from Classes.Items.Item_Heal import HealItem
 from Classes.Class_GUIBoxPlayerInfo import GUIBoxPlayerInfo
 from Classes.Class_ItemSpawner import ItemSpawner
+from Classes.Class_PlayerSpawner import PlayerSpawner
 from Classes.Package_Geometry import *
 
                 #==========================================#
@@ -88,11 +89,15 @@ def runPVPGame(screen, length):
             contManager.startCont(i)
 
     # Creates map boundaries to prevent players from leaving map
-    scenery = [PyGameObj(Polygon([(0, 100), (600, 106), (1200, 100)])),
+    scenery = [PyGameObj(Polygon([(0, 100), (600, 125), (1200, 100)])),
                PyGameObj(Polygon([(1200, 100), (1194, 450), (1200, 800)])),
                PyGameObj(Polygon([(1200, 800), (600, 794), (0, 800)])),
                PyGameObj(Polygon([(0, 800), (6, 450), (0, 100)]))]
 
+    for player in players:
+        scenery += [PlayerSpawner([randint(100, 1100),
+                                   randint(200, 700)],
+                                  player)]
     # Generate item spawners before scenery so that nothing spawns inside of
     #scenery. The random scenery generator will need to consider these. We add
     #the length of scenery on the random generation call so that we don't
@@ -108,11 +113,11 @@ def runPVPGame(screen, length):
         gui += [GUIBoxPlayerInfo(player)]
 
     # Game loop, only terminates when time runs out or player escapes.
+    timeDisp = TextObj(20, 535, 105)
     while not done and length:
+
         pygame.event.pump()
         length -= 1
-
-
 
                     #==========================================#
                 #~~~~~~~~~~~~]      Control Phase      [~~~~~~~~~~~~#
@@ -126,4 +131,5 @@ def runPVPGame(screen, length):
                 #~~~~~~~~~~~~]      Display Phase      [~~~~~~~~~~~~#
                     #==========================================#
 
-        displayPortion(screen, gui, players, collectibles, projectiles, scenery)
+        displayPortion(screen, gui, players, collectibles, projectiles, scenery,
+                       timeDisp, length)

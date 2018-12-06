@@ -72,7 +72,6 @@ class Player(Entity):
                  colorArg = (0,0,0)):
 
         super().__init__(Circle((xArg, yArg), 10), spdArg, dirArg)
-        self.spawn = (xArg, yArg)
         self.control = controlArg
         self.pNum = pNumArg
         self.lookDir = lookDirArg
@@ -90,6 +89,9 @@ class Player(Entity):
         self.wins = 0
         self.color = colorArg
 
+    def setSpawn(self, spawner):
+        self.spawn = (spawner.c[0], spawner.c[1])
+        self.shape.c = list(self.spawn)
                 #==========================================#
             #~~~~~~~~~~~~]     Control Methods    [~~~~~~~~~~~~#
                 #==========================================#

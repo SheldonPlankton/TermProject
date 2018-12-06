@@ -71,6 +71,8 @@ class GUIBoxPlayerInfo:
                [(12, 5, 2)], [60, 120, 0], True).\
                draw(screen, [str(self.player.life) + "/" +
                              str(self.player.maxLife)], [(255, 255, 255)])
+
+        # Draw swap and collection cooldown bars
         pygame.draw.rect(screen, (40, 40, 40),
                         pygame.Rect(self.anchor + 90, 18, 40, 4), 0)
         pygame.draw.rect(screen, (40, 40, 40),
@@ -84,6 +86,7 @@ class GUIBoxPlayerInfo:
                      pygame.Rect(self.anchor + 90, 27,
                      40 * ((120 - self.player.colCool) / 120), 4), 0)
 
+        # Draw inventory
         for slot in self.itemBox:
 
             xPos = self.anchor + 10 + (slot[0] - 1) * (self.mainBox.w / 5)
