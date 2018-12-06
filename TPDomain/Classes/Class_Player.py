@@ -71,6 +71,7 @@ class Player(Entity):
                  spdArg, dirArg, lookDirArg, dfnArg, atkArg):
 
         super().__init__(Circle((xArg, yArg), 10), spdArg, dirArg)
+        self.spawn = (xArg, yArg)
         self.control = controlArg
         self.pNum = pNumArg
         self.lookDir = lookDirArg
@@ -84,6 +85,7 @@ class Player(Entity):
         self.curItem = 1
         self.colCool = 0
         self.swapCool = 0
+        self.lastHit = None
         self.wins = 0
 
                 #==========================================#
@@ -194,8 +196,21 @@ class Player(Entity):
         self.life += healAmount if healAmount <= self.maxLife - self.life \
                      else max(self.maxLife - self.life, 0)
 
+# Called in the update method if the player has died
+    def death(self):
+        self.shape.c = list(self.spawn)
+        self.life = self.maxLife
+        self.colCool = 0
+        self.swapCool = 0
+        self.curItem = 1
+        for i in range(1,6): self.inv[i] = Item(None, 0, 0)
+        self.lastHit.wins += 1
+
 # Updates time based variables
     def update(self):
+        if self.life <= 0:
+            self.death()
+
         if self.colCool > 0:
             self.colCool -= 1
 
@@ -205,6 +220,8 @@ class Player(Entity):
         for item in self.inv:
             if self.inv[item].coolCurrent > 0:
                 self.inv[item].coolCurrent -= 1
+
+
 
                 #==========================================#
             #~~~~~~~~~~~~]       Draw Methods     [~~~~~~~~~~~~#

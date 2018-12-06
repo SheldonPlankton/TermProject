@@ -33,10 +33,13 @@ import math
 
 class Icon:
 
-    def __init__(self, imgName, ang = 0):
-        self.img = pygame.image.load(os.path.join('TPDomain', 'Assets', 'Image',
-                                                  imgName + '.png'))
-        self.img = pygame.transform.rotate(self.img, math.degrees(0))
+    def __init__(self, imgName = None, ang = 0):
+        if imgName != None:
+            self.img = pygame.image.load(os.path.join('TPDomain', 'Assets',
+                                                      'Image',imgName + '.png'))
+            self.img = pygame.transform.rotate(self.img, math.degrees(0))
+        else: self.img = None
 
     def draw(self, screen, pos):
-        screen.blit(self.img, pos)
+        if self.img != None:
+            screen.blit(self.img, pos)

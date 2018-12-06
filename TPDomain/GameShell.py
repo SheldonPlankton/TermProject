@@ -20,7 +20,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Updated to v0.4 on 11/17/2018
-# Changes:d
+# Changes:
 # o Reshuffled code in accordance with changes to structure of classes
 
 # Updated to v0.3 on 11/17/2018

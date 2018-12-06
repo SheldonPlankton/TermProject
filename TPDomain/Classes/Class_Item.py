@@ -44,14 +44,13 @@ class Item:
         self.cool = coolArg
         self.coolCurrent = 0
         self.color = colorArg
-        if iconName != None:
-            self.icon = Icon(iconName)
+        self.icon = Icon(iconName)
 
 # This allows the on-screen representation to depend on the item definition.
 #Basically, the collectible class will call this method when drawing the
 #item so that this defines what is drawn.
     def draw(self, screen, x, y, r):
-        if hasattr(self, 'icon'):
+        if self.icon.img != None:
             self.icon.draw(screen,
                            (int(x - sqrt((r**2)/2)), int(y - sqrt((r**2)/2))))
 

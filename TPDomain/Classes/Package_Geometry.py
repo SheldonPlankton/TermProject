@@ -82,10 +82,12 @@ def colCircCirc(c1, r1, c2, r2):
 #point and the line segment. lp1 and lp2 define the line, p0 is the
 #point to check. This equation comes from reading some wikipedia articles.
 def distPointLine(lp1, lp2, p0):
-    if lp1[0] - lp2[0] == 0:
+    if abs(lp1[0] - lp2[0]) <= 5:
+
         return abs(p0[0]-lp2[0])
 
-    elif lp1[1] - lp2[1] == 0:
+    elif abs(lp1[1] - lp2[1]) <= 5:
+
         return abs(p0[1]-lp2[1])
 
     termA = (lp2[1] - lp1[1]) * p0[0]
@@ -95,8 +97,9 @@ def distPointLine(lp1, lp2, p0):
     return abs(termC + termA - termB) / termD
 
 def colCircLineSeg(lp1, lp2, circ):
-    if (min(lp1[0], lp2[0]) < circ.c[0] < max(lp1[0], lp2[0]) and \
-       min(lp1[1], lp2[1]) < circ.c[1] < max(lp1[1], lp2[1])) and \
+    comp = .5 * circ.r
+    if (min(lp1[0], lp2[0]) - comp < circ.c[0] < max(lp1[0], lp2[0]) + comp and
+       min(lp1[1], lp2[1]) - comp < circ.c[1] < max(lp1[1], lp2[1]) + comp) and \
        distPointLine(lp1, lp2, (circ.c[0], circ.c[1])) < circ.r:
        return True
     return False
@@ -174,17 +177,16 @@ class Circle:
     def __init__(self, centerArg, rArg, imgArg = False, angArg = 0):
         self.c = list(centerArg)
         self.r = rArg
-        if imgArg:
-            self.img = Icon(imgArg, angArg)
+        self.img = Icon(imgArg if imgArg != False else None, angArg)
 
     def collision(self, other):
         return generalCollider(self, other)
 
     def draw(self, screen, color):
-        if not hasattr(self, 'img'):
+        if self.img.img == None:
             pygame.draw.circle(screen, color,
-                               (int(self.c[0]), int(self.c[1])),
-                               int(self.r))
+                            (int(self.c[0]), int(self.c[1])),
+                              int(self.r))
         else:
             self.img.draw(screen,
                          (int(self.c[0] - sqrt((self.r**2)/2)),

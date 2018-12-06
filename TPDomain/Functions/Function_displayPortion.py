@@ -32,44 +32,24 @@ from Classes.Package_Geometry import Polygon
 # Function Def:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-BLACK    = (   0,   0,   0)
-WHITE    = ( 255, 255, 255)
-RED      = ( 255, 255,   0)
+def displayPortion(screen, gui, players, collectibles, projectiles, scenery):
+    screen.fill((255, 255, 150))
 
-def displayPortion(screen, text, players, collectibles, projectiles, scenery):
-    screen.fill(WHITE)
     for collectible in collectibles:
-
         collectible.draw(screen)
 
-    text.reset()
-
-    for player in players:
-
-        player.draw(screen)
-        #player._debug_lookDirCheck(screen)
-
-        text.printS(screen,
-                    "Player{:d} x:{:>6.2f}".format(player.pNum,
-                                                   player.shape.c[0]))
-
-        text.printS(screen,
-                    "Player{:d} y:{:>6.2f}".format(player.pNum,
-                                                   player.shape.c[1]))
-
-        text.printS(screen,
-                    "Player{:d} Item {:d}:{}".format(player.pNum, player.curItem,
-                    player.inv[player.curItem].name),
-                    color = player.inv[player.curItem].color)
-        text.printS(screen,
-                    "Player{:d} Health: {:d}".format(player.pNum, player.life),
-                    color = player.inv[player.curItem].color)
-        text.printS(screen, "")
 
     for projectile in projectiles:
         projectile.draw(screen)
 
     for obst in scenery:
-        obst.draw(screen)
+        if hasattr(obst, "draw"): obst.draw(screen)
+
+    for player in players:
+        player.draw(screen)
+
+    pygame.draw.rect(screen, (150, 150, 150), pygame.Rect(0, 0, 1200, 100))
+    for box in gui:
+        box.draw(screen)
 
     pygame.display.flip()

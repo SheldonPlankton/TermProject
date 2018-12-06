@@ -29,6 +29,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 from Classes.Class_Entity import Entity
+from Classes.Class_PyGameObj import PyGameObj
 import pygame
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -53,20 +54,24 @@ class ProjectileBase(Entity):
 
     def update(self, projectiles, scenery, players):
         if 0 > self.shape.c[0] or self.shape.c[0] > 1200: return True
-        if 0 > self.shape.c[1] or self.shape.c[1] > 800: return True
+        if 100 > self.shape.c[1] or self.shape.c[1] > 800: return True
 
         if self.life:
             for player in players:
-                if player.pNum != self.owner and self.collision(player.shape):
+                if player != self.owner and self.collision(player.shape):
                     player.life -= self.dmg
+                    player.lastHit = self.owner
                     return True
 
         if self.life:
             for obst in scenery:
+                if type(obst) != PyGameObj:
+                    continue
                 col = self.collision(obst.shape)
                 if col[0]:
                     return True
+
         self.move()
         self.life -= 1
-        
+
         return not self.life

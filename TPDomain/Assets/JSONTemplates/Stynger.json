@@ -1,0 +1,12 @@
+{"name" : "Stynger",
+ "uses" : 200,
+ "cool" : 10,
+ "spd"  : 7,
+ "life" : 70,
+ "dmg"  : 10,
+ "pRad" : 3,
+ "pCol" : [255, 120, 0],
+ "pImg" : "",
+ "color": [120, 255, 100],
+ "img"  : "Test"
+}

@@ -34,7 +34,8 @@
 
 from math import *
 import pygame
-
+from Classes.Class_PyGameObj import PyGameObj
+from Classes.Class_ItemSpawner import ItemSpawner
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Function Def:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -50,6 +51,10 @@ def playerControlPortion(contManager, players, collectibles, projectiles,
         if event.type == pygame.QUIT:
             return True
 
+    for i in range(len(projectiles) - 1, -1, -1):
+        if projectiles[i].update(projectiles, scenery, players):
+            del projectiles[i]
+
     # Player control loop
     for player in players:
         player.move(contManager)
@@ -57,8 +62,11 @@ def playerControlPortion(contManager, players, collectibles, projectiles,
         player.collect(contManager, collectibles)
         player.swap(contManager)
         player.useItem(contManager, players, projectiles)
+
         for obst in scenery:
-            player.collision(obst.shape)
+            if type(obst) == PyGameObj: player.collision(obst.shape)
+            if type(obst) == ItemSpawner: obst.spawn(collectibles)
+
         player.update()
 
         if player.pNum < pygame.joystick.get_count():
@@ -69,8 +77,5 @@ def playerControlPortion(contManager, players, collectibles, projectiles,
             if pygame.key.get_pressed()[pygame.K_ESCAPE]:
                 return True
 
-    for i in range(len(projectiles) - 1, -1, -1):
-        if projectiles[i].update(projectiles, scenery, players):
-            del projectiles[i]
 
     # Testing exit via button command

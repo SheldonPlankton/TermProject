@@ -34,13 +34,15 @@ from math import *
 class BaseWeapon(Classes.Class_Item.Item):
 
     def __init__(self, nameArg, usesArg, coolArg, spdArg, lifeArg, dmgArg,
-                 pRadArg, pColArg, colorArg = (0, 0, 0), imgArg = None):
+                 pRadArg, pColArg, colorArg = (0, 0, 0), imgArg = None,
+                 pImgArg = None):
         super().__init__(nameArg, usesArg, coolArg, colorArg, imgArg)
         self.spd = spdArg
         self.life = lifeArg
         self.dmg = dmgArg
         self.pRad = pRadArg
         self.pCol = pColArg
+        self.pImg = pImgArg
 
     def use(self, user, players, projectiles):
         if not self.coolCurrent:
@@ -52,7 +54,7 @@ class BaseWeapon(Classes.Class_Item.Item):
                             Circle((
                             user.shape.c[0] + user.shape.r * cos(user.lookDir),
                             user.shape.c[1] + user.shape.r * sin(user.lookDir),
-                            ), self.pRad, imgArg = 'Test',
-                            angArg = -user.lookDir), self.pCol, user.pNum)
+                            ), self.pRad, imgArg = self.pImg,
+                            angArg = -user.lookDir), self.pCol, user)
                            ]
             return not self.uses

@@ -58,8 +58,8 @@ def randomSceneryGen(screenSize, pieces, scenery = []):
     while True:
         skip = False
         newSceneryPiece = randomSceneryObject(randint(3, 7),
-                                              (randint(0, screenSize[1]),
-                                              randint(50, screenSize[0])),
+                                              (randint(0, screenSize[0]),
+                                              randint(100, screenSize[1])),
                                               randint(20, 70), randint(2, 5),
                                               randint(0, 10)
                                               )
