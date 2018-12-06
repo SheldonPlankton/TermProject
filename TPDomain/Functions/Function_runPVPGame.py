@@ -70,26 +70,14 @@ def runPVPGame(screen, length):
 
     # Define a controller and a player state
     contManager = PlayerInputManager()
-    """
-    collectibles = [Collectible(randint(0, 10 * i * 5),
-                                randint(0, 10 * i + 200), 10,
-                                BaseWeapon("Item" + str(i), 200, 20, 6, 1000, 20,
-                                5, (randint(0,255), randint(0,255), randint(0,255)),
-                                (120, 0, 240), 'Test')) \
-                                for i in range(20)]
-    """
-    collectibles = [Collectible(randint(0, 800),
-                                 randint(100, 800), 10,
-                                 HealItem("Potion", 4, 50, 50,
-                                 (0, 255, 240), 'Potion'))]
 
+    collectibles = []
+
+    # Create empty projectiles list
     projectiles = []
-    # Defines a screen to print player data
-
-
 
     players = [Player("KEYBOARD", pygame.joystick.get_count() + 1,
-               200, 200, 400, 2, pi, 0, 10, 10)]
+               200, 200, 400, 2, pi, 0, 10, 10, (100, 200, 30))]
 
     # Initializes even if no joystick (only adds joystick if controller plugged in)
     if pygame.joystick.get_count() > 0:
@@ -99,18 +87,27 @@ def runPVPGame(screen, length):
             contManager.addConts(i)
             contManager.startCont(i)
 
+    # Creates map boundaries to prevent players from leaving map
     scenery = [PyGameObj(Polygon([(0, 100), (600, 106), (1200, 100)])),
                PyGameObj(Polygon([(1200, 100), (1194, 450), (1200, 800)])),
                PyGameObj(Polygon([(1200, 800), (600, 794), (0, 800)])),
                PyGameObj(Polygon([(0, 800), (6, 450), (0, 100)]))]
 
-    scenery += [ItemSpawner(50, 100, 200, 200, ['Stynger'])]
-    scenery += randomSceneryGen((1200, 800), 30, scenery)
+    # Generate item spawners before scenery so that nothing spawns inside of
+    #scenery. The random scenery generator will need to consider these. We add
+    #the length of scenery on the random generation call so that we don't
+    #consider the pre-formed and special scenery objects when we generate.
+    scenery += [ItemSpawner(50, 100, 40, 40, 5800, ['Rhyno'])]
+    scenery += randomSceneryGen((1200, 800),
+                                randint(15, 30) + len(scenery), scenery)
 
+    # Initialize GUI boxes
     gui = []
     for player in players:
+        # Create a Player info box and point it to a player
         gui += [GUIBoxPlayerInfo(player)]
 
+    # Game loop, only terminates when time runs out or player escapes.
     while not done and length:
         pygame.event.pump()
         length -= 1

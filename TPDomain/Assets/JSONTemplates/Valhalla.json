@@ -1,0 +1,12 @@
+{"name" : "Valhalla",
+ "uses" : 3,
+ "cool" : 120,
+ "spd"  : 12,
+ "life" : 1000,
+ "dmg"  : 150,
+ "pRad" : 25,
+ "pCol" : [240, 70, 250],
+ "pImg" : "",
+ "color": [100, 255, 255],
+ "img"  : "Test"
+}

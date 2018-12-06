@@ -120,7 +120,7 @@ def colCircPoly(circle, polygon, mtvCheck = False):
         if colCircLineSeg(*side, circle):
             if mtvCheck:
                 theta = atan2(norm[1], norm[0])
-                minTransVect = (-5 * cos(theta), -5 * sin(theta))
+                minTransVect = (-2 * cos(theta), -2 * sin(theta))
             return True if not mtvCheck else True, minTransVect
 
     return False if not mtvCheck else False, minTransVect

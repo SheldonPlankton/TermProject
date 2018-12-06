@@ -68,7 +68,8 @@ class Player(Entity):
                 #==========================================#
 
     def __init__(self, controlArg, pNumArg, xArg, yArg, lifeArg,
-                 spdArg, dirArg, lookDirArg, dfnArg, atkArg):
+                 spdArg, dirArg, lookDirArg, dfnArg, atkArg,
+                 colorArg = (0,0,0)):
 
         super().__init__(Circle((xArg, yArg), 10), spdArg, dirArg)
         self.spawn = (xArg, yArg)
@@ -87,6 +88,7 @@ class Player(Entity):
         self.swapCool = 0
         self.lastHit = None
         self.wins = 0
+        self.color = colorArg
 
                 #==========================================#
             #~~~~~~~~~~~~]     Control Methods    [~~~~~~~~~~~~#
@@ -110,12 +112,12 @@ class Player(Entity):
             if self.control == "GAMEPAD":
                 if contManager.getButton(self.pNum, 5):
                     self.curItem = (self.curItem % 5) + 1
+                    self.swapCool = 50
 
             elif self.control == "KEYBOARD":
                 if contManager.conts[self.pNum].mouseClick()[2]:
                     self.curItem = (self.curItem % 5) + 1
-
-            self.swapCool = 150
+                    self.swapCool = 50
 
 
 
@@ -158,6 +160,7 @@ class Player(Entity):
                 if collectibles[i].collision(self.shape):
                     self.equip(collectibles[i].item, collectibles)
                     del collectibles[i]
+                    self.colCool = 120
                     break
 
         if not self.colCool:
@@ -165,10 +168,10 @@ class Player(Entity):
                 if contManager.getButton(self.pNum, 2):
                     collectLoop(self, collectibles)
 
+
             elif self.control == "KEYBOARD":
                 if contManager.conts[self.pNum].mouseClick()[1]:
                     collectLoop(self, collectibles)
-            self.colCool = 200
 
 
 
@@ -227,5 +230,5 @@ class Player(Entity):
             #~~~~~~~~~~~~]       Draw Methods     [~~~~~~~~~~~~#
                 #==========================================#
 
-    def draw(self, screen, color = (0, 0, 0)):
-        self.shape.draw(screen, color)
+    def draw(self, screen):
+        self.shape.draw(screen, self.color)

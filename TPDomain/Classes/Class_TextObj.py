@@ -53,15 +53,14 @@ import pygame
 # Class Def:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-BLACK    = (   0,   0,   0)
 
 class TextObj:
-    
+
     def __init__(self, fontSizeArg, xArg, yArg):
         self.font = pygame.font.Font(None, fontSizeArg)
         self.x = xArg
         self.y = yArg
 
-    def printS(self, screen, textString, color = BLACK):
+    def printS(self, screen, textString, color = (0,0,0)):
         textBitmap = self.font.render(textString, True, color)
         screen.blit(textBitmap, [self.x, self.y])

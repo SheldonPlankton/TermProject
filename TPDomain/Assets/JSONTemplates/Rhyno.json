@@ -1,0 +1,12 @@
+{"name" : "Rhyno",
+ "uses" : 300,
+ "cool" : 5,
+ "spd"  : 10,
+ "life" : 50,
+ "dmg"  : 4,
+ "pRad" : 2,
+ "pCol" : [120, 220, 0],
+ "pImg" : "",
+ "color": [100, 255, 255],
+ "img"  : "Test"
+}

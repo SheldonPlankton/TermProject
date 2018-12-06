@@ -47,9 +47,11 @@ class GUIBox:
                             self.y + t[2]) for t in textArg]
         self.fill = fillArg
 
-    def draw(self, screen, text):
+    def draw(self, screen, text, colors = None):
         pygame.draw.rect(screen, self.color,
                          pygame.Rect(self.x, self.y, self.w, self.h),
                          0 if self.fill else 1)
         for i in range(len(self.text)):
-            self.text[i].printS(screen, text[i])
+            self.text[i].printS(screen, text[i],
+                                colors[i] if colors != None and\
+                                colors[i] != None else (0, 0, 0))

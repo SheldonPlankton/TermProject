@@ -36,6 +36,7 @@ from math import *
 import pygame
 from Classes.Class_PyGameObj import PyGameObj
 from Classes.Class_ItemSpawner import ItemSpawner
+import time
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Function Def:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -50,6 +51,7 @@ def playerControlPortion(contManager, players, collectibles, projectiles,
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             return True
+
 
     for i in range(len(projectiles) - 1, -1, -1):
         if projectiles[i].update(projectiles, scenery, players):
